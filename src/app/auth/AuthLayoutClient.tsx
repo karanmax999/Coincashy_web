@@ -16,31 +16,17 @@ export default function AuthLayoutClient({
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', background: 'var(--ground)', color: 'var(--fg)', position: 'relative' }}>
-      
-      {/* ============ LEFT SHOWCASE PANE (Desktop >= 1024px) ============ */}
-      <aside
-        style={{
-          flex: '1 1 50%',
-          display: 'none',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: 'clamp(2.5rem, 5vw, 4.5rem)',
-          background: 'linear-gradient(170deg, #070709 0%, #000000 100%)',
-          borderRight: '1px solid var(--line)',
-          position: 'relative',
-          overflow: 'hidden',
-          color: '#ffffff',
-        }}
-        className="auth-showcase-pane"
-      >
+    <div className="auth-split-layout">
+      {/* ============ LEFT SHOWCASE PANE (Desktop >= 1024px, Static & Locked) ============ */}
+      <aside className="auth-showcase-pane" aria-label="Coincashy Institutional Highlights">
         {/* Background Visual Effects */}
-        <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '450px', height: '450px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(0, 0, 255, 0.22) 0%, transparent 70%)', filter: 'blur(50px)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-15%', right: '-10%', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(226, 184, 102, 0.12) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+        <div className="auth-glow-top" />
+        <div className="auth-glow-bottom" />
         <svg
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.15, pointerEvents: 'none' }}
+          className="auth-bg-rings"
           viewBox="0 0 800 800"
           preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
         >
           <g fill="none" stroke="currentColor" strokeWidth={1}>
             <circle cx={400} cy={400} r={180} />
@@ -52,29 +38,29 @@ export default function AuthLayoutClient({
 
         {/* Top Header & Brand */}
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <Link href="/" aria-label="Back to Coincashy home" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px' }}>
-            <Image src="/media/logo-white.png" alt="Coincashy" width={140} height={32} style={{ height: '32px', width: 'auto' }} priority />
+          <Link href="/" aria-label="Back to Coincashy home" style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <Image src="/media/logo-white.png" alt="Coincashy" width={135} height={30} style={{ height: '30px', width: 'auto' }} priority />
           </Link>
           
-          <div style={{ marginTop: '2rem', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '999px', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', fontSize: '0.8rem', color: '#fff', fontWeight: 500, backdropFilter: 'blur(10px)' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--coin-usdt)', boxShadow: '0 0 10px var(--coin-usdt)' }} />
+          <div style={{ marginTop: '1.25rem', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 12px', borderRadius: '999px', background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)', fontSize: '0.75rem', color: '#fff', fontWeight: 500, backdropFilter: 'blur(10px)' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--coin-usdt)', boxShadow: '0 0 8px var(--coin-usdt)' }} />
             <span>Polish VASP Registered · KRS: 0001135823 · EU MiCA</span>
           </div>
         </div>
 
-        {/* Middle Value Proposition */}
-        <div style={{ position: 'relative', zIndex: 2, margin: '2rem 0' }}>
-          <h1 style={{ fontSize: 'clamp(2rem, 3.2vw, 2.75rem)', fontWeight: 600, letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: '1.25rem' }}>
-            The institutional gateway for European <em>crypto-fiat settlement.</em>
+        {/* Middle Value Proposition (Compact, 1-screen fit) */}
+        <div style={{ position: 'relative', zIndex: 2, margin: 'auto 0', padding: '1.5rem 0' }}>
+          <h1 style={{ fontSize: 'clamp(1.75rem, 2.5vw, 2.35rem)', fontWeight: 600, letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '1rem', color: '#ffffff' }}>
+            The institutional gateway for European <em style={{ fontStyle: 'italic', color: 'var(--gold, #E2B866)' }}>crypto-fiat settlement.</em>
           </h1>
-          <p style={{ color: 'rgba(255, 255, 255, 0.72)', fontSize: '1.05rem', lineHeight: 1.6, maxWidth: '520px', margin: 0 }}>
+          <p style={{ color: 'rgba(255, 255, 255, 0.72)', fontSize: '0.95rem', lineHeight: 1.55, maxWidth: '480px', margin: 0 }}>
             Access deep institutional liquidity, automated SEPA Instant clearing, and dedicated multi-currency virtual IBANs from a single regulated workspace.
           </p>
         </div>
 
-        {/* Bottom Institutional Trust Seals */}
-        <div style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1.5rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', fontSize: '0.82rem', color: 'rgba(255, 255, 255, 0.65)' }}>
+        {/* Bottom Institutional Trust Seals (Compact 2x2 Grid) */}
+        <div style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '1.25rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.65rem 1rem', fontSize: '0.78rem', color: 'rgba(255, 255, 255, 0.7)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <svg className="ic" style={{ width: 14, height: 14, color: 'var(--coin-usdt)' }}><use href="#i-check" /></svg>
               <span>BitGo &amp; Utila MPC Custody</span>
@@ -95,72 +81,171 @@ export default function AuthLayoutClient({
         </div>
       </aside>
 
-      {/* ============ RIGHT FORM PANE ============ */}
-      <main
-        style={{
-          flex: '1 1 50%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: 'clamp(1.5rem, 4vw, 3rem)',
-          position: 'relative',
-          minHeight: '100vh',
-          width: '100%',
-          background: 'var(--ground)',
-        }}
-      >
-        {/* Top Bar: Return Link + Theme Switcher */}
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '480px', margin: '0 auto 1.5rem' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '0.88rem',
-              color: 'var(--fg-dim)',
-              fontWeight: 500,
-              transition: 'color 0.2s',
-            }}
-            className="hover:text-[var(--fg)]"
-          >
-            <svg className="ic" style={{ width: 16, height: 16 }}><use href="#i-chevron-left" /></svg>
-            <span>Back to coincashy.io</span>
-          </Link>
+      {/* ============ RIGHT FORM PANE (Independently Scrollable) ============ */}
+      <main className="auth-main-pane">
+        <div className="auth-form-container">
+          {/* Top Bar: Return Link + Theme Switcher */}
+          <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '460px', margin: '0 auto 1.5rem' }}>
+            <Link
+              href="/"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '0.88rem',
+                color: 'var(--fg-dim)',
+                fontWeight: 500,
+                transition: 'color 0.2s',
+              }}
+              className="hover:text-[var(--fg)]"
+            >
+              <svg className="ic" style={{ width: 16, height: 16 }}><use href="#i-chevron-left" /></svg>
+              <span>Back to coincashy.io</span>
+            </Link>
 
-          <button
-            className="theme-btn"
-            type="button"
-            data-theme-toggle
-            aria-label="Switch to light mode"
-            title="Switch theme"
-            onClick={handleToggleTheme}
-          >
-            <svg className="ic ic-sun" aria-hidden="true"><use href="#i-sun" /></svg>
-            <svg className="ic ic-moon" aria-hidden="true"><use href="#i-moon" /></svg>
-          </button>
-        </header>
+            <button
+              className="theme-btn"
+              type="button"
+              data-theme-toggle
+              aria-label="Switch to light mode"
+              title="Switch theme"
+              onClick={handleToggleTheme}
+            >
+              <svg className="ic ic-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+              <svg className="ic ic-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+            </button>
+          </header>
 
-        {/* Centered Form Wrapper */}
-        <div style={{ width: '100%', maxWidth: '440px', margin: 'auto' }}>
-          {children}
-        </div>
-
-        {/* Security Trust Footnote */}
-        <footer style={{ width: '100%', maxWidth: '480px', margin: '2rem auto 0', textAlign: 'center', paddingTop: '1.25rem', borderTop: '1px solid var(--line)' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--fg-faint)', justifyContent: 'center' }}>
-            <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-lock" /></svg>
-            <span>256-bit TLS Encryption · ISO 27001 Aligned · Polish VASP KRS 0001135823</span>
+          {/* Centered Form Wrapper */}
+          <div style={{ width: '100%', maxWidth: '440px', margin: '0 auto' }}>
+            {children}
           </div>
-        </footer>
+
+          {/* Security Trust Footnote */}
+          <footer style={{ width: '100%', maxWidth: '460px', margin: '2rem auto 0', textAlign: 'center', paddingTop: '1.25rem', borderTop: '1px solid var(--line)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--fg-faint)', justifyContent: 'center' }}>
+              <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-lock" /></svg>
+              <span>256-bit TLS Encryption · ISO 27001 Aligned · Polish VASP KRS 0001135823</span>
+            </div>
+          </footer>
+        </div>
       </main>
 
-      {/* Responsive Style to display showcase pane on >= 1024px */}
       <style jsx>{`
+        .auth-split-layout {
+          min-height: 100vh;
+          display: flex;
+          background: var(--ground);
+          color: var(--fg);
+          position: relative;
+        }
+
+        .auth-showcase-pane {
+          display: none;
+        }
+
+        .auth-main-pane {
+          flex: 1 1 100%;
+          min-height: 100vh;
+          background: var(--ground);
+        }
+
+        .auth-form-container {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justifyContent: space-between;
+          padding: clamp(1.5rem, 4vw, 3rem);
+          width: 100%;
+        }
+
         @media (min-width: 1024px) {
+          .auth-split-layout {
+            height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+          }
+
           .auth-showcase-pane {
             display: flex !important;
+            flex: 0 0 50%;
+            width: 50%;
+            height: 100vh;
+            max-height: 100vh;
+            position: sticky;
+            top: 0;
+            flex-direction: column;
+            justifyContent: space-between;
+            padding: clamp(2rem, 3.5vw, 3.5rem);
+            background: linear-gradient(170deg, #070709 0%, #000000 100%);
+            border-right: 1px solid var(--line);
+            overflow: hidden;
+            color: #ffffff;
+            user-select: none;
           }
+
+          .auth-main-pane {
+            flex: 0 0 50%;
+            width: 50%;
+            height: 100vh;
+            max-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .auth-form-container {
+            min-height: 100%;
+            padding: clamp(2rem, 3.5vw, 3.5rem);
+          }
+        }
+
+        .auth-glow-top {
+          position: absolute;
+          top: -10%;
+          left: -10%;
+          width: 450px;
+          height: 450px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(0, 0, 255, 0.22) 0%, transparent 70%);
+          filter: blur(50px);
+          pointer-events: none;
+        }
+
+        .auth-glow-bottom {
+          position: absolute;
+          bottom: -15%;
+          right: -10%;
+          width: 500px;
+          height: 500px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(226, 184, 102, 0.12) 0%, transparent 70%);
+          filter: blur(60px);
+          pointer-events: none;
+        }
+
+        .auth-bg-rings {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.15;
+          pointer-events: none;
+        }
+
+        /* Sleek scrollbar for right pane */
+        .auth-main-pane::-webkit-scrollbar {
+          width: 6px;
+        }
+        .auth-main-pane::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .auth-main-pane::-webkit-scrollbar-thumb {
+          background: var(--line);
+          border-radius: 999px;
+        }
+        .auth-main-pane::-webkit-scrollbar-thumb:hover {
+          background: var(--fg-faint);
         }
       `}</style>
     </div>
