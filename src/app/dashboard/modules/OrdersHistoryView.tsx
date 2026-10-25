@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import CryptoLogo from '@/components/CryptoLogo';
 
 export default function OrdersHistoryView() {
   const [filterPair, setFilterPair] = useState('ALL');
@@ -52,7 +53,8 @@ export default function OrdersHistoryView() {
 
       {/* ============ TABLE ============ */}
       <div style={{ borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto' }}>
+        {/* Desktop Table */}
+        <div className="desktop-table-view" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--line)', textAlign: 'left', color: 'var(--fg-faint)', fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'var(--surface-2)' }}>
@@ -74,20 +76,23 @@ export default function OrdersHistoryView() {
                     {order.id}
                   </td>
                   <td style={{ padding: '1rem', fontWeight: 650, color: 'var(--hi)' }}>
-                    {order.pair}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <CryptoLogo symbol={order.pair.split('/')[0].trim()} size={20} />
+                      <span>{order.pair}</span>
+                    </div>
                   </td>
                   <td style={{ padding: '1rem' }}>
-                    <span style={{ fontSize: '0.74rem', padding: '2px 7px', borderRadius: '4px', background: order.side.includes('BUY') ? 'rgba(39, 161, 127, 0.12)' : 'rgba(235, 87, 87, 0.12)', color: order.side.includes('BUY') ? 'var(--coin-usdt)' : 'var(--coral)', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.74rem', padding: '2px 7px', borderRadius: '4px', background: order.side.includes('BUY') ? 'rgba(0, 0, 255, 0.12)' : 'rgba(235, 87, 87, 0.12)', color: order.side.includes('BUY') ? 'var(--jade-text-d)' : 'var(--coral)', fontWeight: 600 }}>
                       {order.side}
                     </span>
                   </td>
-                  <td style={{ padding: '1rem', fontFamily: 'var(--f-mono)' }}>
+                  <td style={{ padding: '1rem', fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums', color: 'var(--fg)' }}>
                     {order.rate}
                   </td>
-                  <td style={{ padding: '1rem', color: 'var(--coral)', fontFamily: 'var(--f-mono)' }}>
+                  <td style={{ padding: '1rem', color: 'var(--coral)', fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
                     -{order.pay}
                   </td>
-                  <td style={{ padding: '1rem', color: 'var(--coin-usdt)', fontWeight: 600, fontFamily: 'var(--f-mono)' }}>
+                  <td style={{ padding: '1rem', color: 'var(--jade-text-d)', fontWeight: 600, fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
                     +{order.receive}
                   </td>
                   <td style={{ padding: '1rem', color: 'var(--jade-text-d)', fontWeight: 600 }}>
@@ -97,7 +102,7 @@ export default function OrdersHistoryView() {
                     {order.date}
                   </td>
                   <td style={{ padding: '1rem 1.25rem', textAlign: 'right' }}>
-                    <span style={{ padding: '3px 8px', borderRadius: '99px', background: 'rgba(39, 161, 127, 0.12)', color: 'var(--coin-usdt)', fontSize: '0.74rem', fontWeight: 600 }}>
+                    <span style={{ padding: '3px 8px', borderRadius: '99px', background: 'rgba(0, 0, 255, 0.12)', color: 'var(--jade-text-d)', fontSize: '0.74rem', fontWeight: 600 }}>
                       {order.status}
                     </span>
                   </td>
@@ -105,6 +110,47 @@ export default function OrdersHistoryView() {
               ))}
             </tbody>
           </table>
+        </div>
+        {/* Mobile View: Clean Stacked Cards */}
+        <div className="mobile-cards-view" style={{ flexDirection: 'column', gap: '0.75rem', padding: '1rem' }}>
+          {filtered.map((order) => (
+            <div
+              key={order.id}
+              style={{
+                padding: '1rem',
+                borderRadius: '14px',
+                background: 'var(--ground)',
+                border: '1px solid var(--line)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <CryptoLogo symbol={order.pair.split('/')[0].trim()} size={28} />
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.92rem', fontWeight: 650, color: 'var(--hi)' }}>{order.pair}</span>
+                    <span style={{ fontSize: '0.7rem', padding: '1px 6px', borderRadius: '4px', background: order.side.includes('BUY') ? 'rgba(0, 0, 255, 0.12)' : 'rgba(235, 87, 87, 0.12)', color: order.side.includes('BUY') ? 'var(--jade-text-d)' : 'var(--coral)', fontWeight: 600 }}>
+                      {order.side}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--fg-dim)', marginTop: '3px' }}>
+                    {order.date} · Rate: {order.rate}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '0.9rem', color: '#3B82F6', fontWeight: 650, fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                  +{order.receive}
+                </div>
+                <span style={{ display: 'inline-block', marginTop: '3px', padding: '2px 8px', borderRadius: '999px', background: 'rgba(0, 0, 255, 0.12)', color: 'var(--jade-text-d)', fontSize: '0.7rem', fontWeight: 600 }}>
+                  {order.status}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

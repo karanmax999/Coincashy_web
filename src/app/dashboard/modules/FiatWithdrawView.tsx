@@ -47,7 +47,7 @@ export default function FiatWithdrawView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
         }}
       >
@@ -82,28 +82,29 @@ export default function FiatWithdrawView() {
         <div style={{ padding: '1.25rem', borderRadius: '16px', background: 'var(--ground)', border: '1px solid var(--line)', marginBottom: '1.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--fg-faint)', marginBottom: '0.5rem' }}>
             <span>WITHDRAWAL AMOUNT</span>
-            <span>Available vIBAN Balance: €42,100.00</span>
+            <span>Available vIBAN: €42,100.00</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
               style={{
-                flex: 1,
+                flex: '1 1 140px',
+                minWidth: '120px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
+                fontSize: 'clamp(1.4rem, 4vw, 1.75rem)',
                 fontWeight: 600,
                 fontFamily: 'var(--f-mono)',
                 outline: 'none',
               }}
             />
 
-            <div style={{ display: 'flex', gap: '4px' }}>
+            <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
               {['25%', '50%', '100%'].map((pct) => (
                 <button
                   key={pct}
@@ -128,7 +129,7 @@ export default function FiatWithdrawView() {
               ))}
             </div>
 
-            <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--hi)' }}>EUR (€)</span>
+            <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--hi)', flexShrink: 0 }}>EUR (€)</span>
           </div>
         </div>
 
@@ -186,10 +187,11 @@ export default function FiatWithdrawView() {
             width: '100%',
             padding: '14px',
             fontSize: '1rem',
-            fontWeight: 600,
+            fontWeight: 700,
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, var(--jade), var(--brass))',
-            color: '#fff',
+            background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+            color: '#ffffff',
+            boxShadow: '0 4px 20px rgba(0, 0, 255, 0.35)',
             border: 'none',
             borderRadius: '12px',
             cursor: isProcessing || numAmount <= 0 ? 'not-allowed' : 'pointer',

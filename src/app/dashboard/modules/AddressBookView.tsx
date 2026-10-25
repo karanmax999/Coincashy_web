@@ -100,7 +100,8 @@ export default function AddressBookView() {
 
       {/* ============ ADDRESSES TABLE ============ */}
       <div style={{ borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)', overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto' }}>
+        {/* Desktop Table View */}
+        <div className="desktop-table-view" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--line)', textAlign: 'left', color: 'var(--fg-faint)', fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.08em', background: 'var(--surface-2)' }}>
@@ -133,7 +134,7 @@ export default function AddressBookView() {
                     {item.dateAdded}
                   </td>
                   <td style={{ padding: '1rem' }}>
-                    <span style={{ padding: '3px 8px', borderRadius: '99px', background: item.status === 'Active' ? 'rgba(39, 161, 127, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: item.status === 'Active' ? 'var(--coin-usdt)' : 'var(--pending)', fontSize: '0.74rem', fontWeight: 600 }}>
+                    <span style={{ padding: '3px 8px', borderRadius: '99px', background: item.status === 'Active' ? 'rgba(0, 0, 255, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: item.status === 'Active' ? 'var(--jade-text-d)' : 'var(--pending)', fontSize: '0.74rem', fontWeight: 600 }}>
                       {item.status === 'Active' ? '✓ Whitelisted' : '⏳ 24h Cooling Off'}
                     </span>
                   </td>
@@ -154,6 +155,61 @@ export default function AddressBookView() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile View: Touch-Friendly Stacked Cards */}
+        <div className="mobile-cards-view" style={{ flexDirection: 'column', gap: '0.75rem', padding: '1rem' }}>
+          {addresses.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                padding: '1rem',
+                borderRadius: '14px',
+                background: 'var(--ground)',
+                border: '1px solid var(--line)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--hi)' }}>{item.label}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--hi)' }}>{item.asset}</span>
+                    <span style={{ fontSize: '0.68rem', padding: '1px 6px', borderRadius: '4px', background: 'var(--surface-2)', border: '1px solid var(--line)', color: 'var(--fg-dim)' }}>
+                      {item.network}
+                    </span>
+                  </div>
+                </div>
+
+                <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: '999px', background: item.status === 'Active' ? 'rgba(0, 0, 255, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: item.status === 'Active' ? 'var(--jade-text-d)' : 'var(--pending)', fontWeight: 600, flexShrink: 0 }}>
+                  {item.status === 'Active' ? '✓ Whitelisted' : '⏳ Cooling Off'}
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', padding: '8px 10px', borderRadius: '8px', background: 'var(--surface-2)', border: '1px solid var(--line)' }}>
+                <span style={{ fontFamily: 'var(--f-mono)', fontSize: '0.76rem', color: 'var(--fg-dim)', wordBreak: 'break-all', minWidth: 0 }}>
+                  {item.address}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard?.writeText(item.address);
+                    alert('Address copied to clipboard!');
+                  }}
+                  className="btn btn-solid btn-sm"
+                  style={{ flexShrink: 0, padding: '3px 8px', fontSize: '0.72rem' }}
+                >
+                  Copy
+                </button>
+              </div>
+
+              <div style={{ fontSize: '0.72rem', color: 'var(--fg-faint)' }}>
+                Added {item.dateAdded}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -180,8 +236,10 @@ export default function AddressBookView() {
               borderRadius: '24px',
               background: 'var(--surface)',
               border: '1px solid var(--line)',
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               boxShadow: 'var(--shadow)',
+              maxHeight: '90vh',
+              overflowY: 'auto',
             }}
             onClick={(e) => e.stopPropagation()}
           >

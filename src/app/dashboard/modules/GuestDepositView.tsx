@@ -38,7 +38,7 @@ export default function GuestDepositView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
         }}
       >
@@ -147,8 +147,8 @@ export default function GuestDepositView() {
             <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold, #E2B866)', fontWeight: 600 }}>
               Generated Link (Valid 48 Hours)
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '6px' }}>
-              <code style={{ fontSize: '0.85rem', fontFamily: 'var(--f-mono)', color: 'var(--hi)' }}>{generatedLink}</code>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginTop: '6px', flexWrap: 'wrap' }}>
+              <code style={{ fontSize: '0.85rem', fontFamily: 'var(--f-mono)', color: 'var(--hi)', wordBreak: 'break-all', minWidth: 0 }}>{generatedLink}</code>
               <button
                 type="button"
                 onClick={() => {
@@ -156,7 +156,7 @@ export default function GuestDepositView() {
                   alert('Copied link to clipboard!');
                 }}
                 className="btn btn-solid btn-sm"
-                style={{ padding: '4px 10px', fontSize: '0.74rem' }}
+                style={{ padding: '4px 10px', fontSize: '0.74rem', flexShrink: 0 }}
               >
                 Copy Link
               </button>
@@ -166,12 +166,13 @@ export default function GuestDepositView() {
       </div>
 
       {/* ============ ACTIVE ESCROW LEDGER ============ */}
-      <div style={{ borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)', padding: '1.75rem' }}>
+      <div style={{ borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)', padding: 'clamp(1rem, 3vw, 1.75rem)' }}>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--hi)', marginBottom: '1.25rem' }}>
           Recent Counterparty Deposit Inflows
         </h3>
 
-        <div style={{ overflowX: 'auto' }}>
+        {/* Desktop Table View */}
+        <div className="desktop-table-view" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--line)', textAlign: 'left', color: 'var(--fg-faint)', fontSize: '0.74rem', textTransform: 'uppercase' }}>
@@ -200,6 +201,42 @@ export default function GuestDepositView() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile View: Stacked Cards */}
+        <div className="mobile-cards-view" style={{ flexDirection: 'column', gap: '0.75rem' }}>
+          {guestDeposits.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                padding: '1rem',
+                borderRadius: '14px',
+                background: 'var(--ground)',
+                border: '1px solid var(--line)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                <div>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--hi)' }}>{item.client}</div>
+                  <div style={{ fontSize: '0.76rem', color: 'var(--fg-dim)', marginTop: '2px' }}>
+                    {item.origin} · <span style={{ fontFamily: 'var(--f-mono)' }}>{item.id}</span>
+                  </div>
+                </div>
+
+                <span style={{ padding: '2px 8px', borderRadius: '99px', background: item.status.includes('Settled') ? 'rgba(39, 161, 127, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: item.status.includes('Settled') ? 'var(--coin-usdt)' : 'var(--pending)', fontSize: '0.7rem', fontWeight: 600, flexShrink: 0 }}>
+                  {item.status}
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px', borderTop: '1px solid var(--line)', paddingTop: '6px' }}>
+                <span style={{ fontSize: '0.76rem', color: 'var(--fg-faint)' }}>{item.date}</span>
+                <span style={{ fontWeight: 650, fontFamily: 'var(--f-mono)', color: 'var(--coin-usdt)', fontSize: '0.92rem' }}>{item.amount}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

@@ -42,7 +42,7 @@ export default function ProfileView() {
           overflow: 'hidden',
         }}
       >
-        <div style={{ position: 'absolute', top: 0, right: 0, width: '350px', height: '100%', background: 'radial-gradient(circle at top right, rgba(39, 161, 127, 0.15), transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '350px', height: '100%', background: 'radial-gradient(circle at top right, rgba(0, 0, 255, 0.25), transparent 70%)', pointerEvents: 'none' }} />
 
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
@@ -51,14 +51,14 @@ export default function ProfileView() {
                 width: 'clamp(56px, 6vw, 68px)',
                 height: 'clamp(56px, 6vw, 68px)',
                 borderRadius: '20px',
-                background: 'linear-gradient(135deg, var(--jade), var(--brass))',
+                background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
                 color: '#fff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 700,
                 fontSize: 'clamp(1.2rem, 2vw, 1.5rem)',
-                boxShadow: '0 8px 24px rgba(39, 161, 127, 0.25)',
+                boxShadow: '0 8px 24px rgba(0, 0, 255, 0.35)',
                 flexShrink: 0,
               }}
             >
@@ -70,8 +70,8 @@ export default function ProfileView() {
                 <h2 style={{ fontSize: 'clamp(1.3rem, 2.4vw, 1.75rem)', fontWeight: 600, color: 'var(--hi)' }}>
                   Alpha Treasury Partners Sp. z o.o.
                 </h2>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', borderRadius: '999px', background: 'rgba(39, 161, 127, 0.12)', border: '1px solid rgba(39, 161, 127, 0.25)', color: 'var(--coin-usdt)', fontSize: '0.75rem', fontWeight: 600 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--coin-usdt)' }} />
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', borderRadius: '999px', background: 'rgba(0, 0, 255, 0.12)', border: '1px solid rgba(107, 107, 255, 0.3)', color: 'var(--jade-text-d)', fontSize: '0.75rem', fontWeight: 600 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3B82F6' }} />
                   Verified KYB Tier-2
                 </span>
               </div>
@@ -121,7 +121,7 @@ export default function ProfileView() {
       </div>
 
       {/* Sub-Tab Navigation Pills */}
-      <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '0.75rem', marginBottom: '2rem', overflowX: 'auto' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--line)', paddingBottom: '0.75rem', marginBottom: '1.5rem', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', maxWidth: '100%' }}>
         {[
           { id: 'entity' as ProfileSubTab, label: 'Organization & KYB', icon: '#i-landmark' },
           { id: 'security' as ProfileSubTab, label: 'Security & 2FA', icon: '#i-lock' },
@@ -145,7 +145,7 @@ export default function ProfileView() {
                 fontWeight: isActive ? 600 : 500,
                 color: isActive ? 'var(--hi)' : 'var(--fg-dim)',
                 background: isActive ? 'var(--surface-2)' : 'transparent',
-                border: isActive ? '1px solid var(--line-2)' : '1px solid transparent',
+                border: isActive ? '1px solid rgba(107, 107, 255, 0.35)' : '1px solid transparent',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease',
@@ -161,7 +161,7 @@ export default function ProfileView() {
       </div>
 
       {/* Main Content Grid: 2 Column (Content + Concierge Desk) */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', alignItems: 'start' }}>
         
         {/* Left Primary Column */}
         <div style={{ flex: '1 1 65%', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
@@ -175,7 +175,7 @@ export default function ProfileView() {
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--hi)' }}>Corporate Entity Profile</h3>
                     <p style={{ fontSize: '0.82rem', color: 'var(--fg-dim)', marginTop: '2px' }}>Verified legal entity data recorded under Polish VASP AML compliance.</p>
                   </div>
-                  <span style={{ fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', background: 'rgba(39, 161, 127, 0.12)', color: 'var(--coin-usdt)', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', background: 'rgba(0, 0, 255, 0.12)', color: 'var(--jade-text-d)', fontWeight: 600 }}>
                     Active · Valid until Jan 2027
                   </span>
                 </div>
@@ -290,7 +290,7 @@ export default function ProfileView() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', borderRadius: '12px', background: 'var(--ground)', border: '1px solid var(--line)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <div style={{ width: 36, height: 36, borderRadius: '8px', background: 'var(--surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <svg className="ic" style={{ width: 18, height: 18, color: 'var(--coin-usdt)' }}><use href="#i-check" /></svg>
+                      <svg className="ic" style={{ width: 18, height: 18, color: '#3B82F6' }}><use href="#i-check" /></svg>
                     </div>
                     <div>
                       <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--hi)' }}>Primary YubiKey 5C NFC</div>
@@ -323,7 +323,7 @@ export default function ProfileView() {
                       <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--hi)' }}>Warsaw, Poland · Chrome 124 (Windows 11)</div>
                       <div style={{ fontSize: '0.74rem', color: 'var(--fg-dim)' }}>IP: 185.190.41.*** · Current active session</div>
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--coin-usdt)', fontWeight: 600 }}>This Device</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--jade-text-d)', fontWeight: 600 }}>This Device</span>
                   </div>
 
                   {!sessionsRevoked && (
@@ -353,7 +353,7 @@ export default function ProfileView() {
                 </div>
 
                 <div style={{ width: '100%', height: '10px', borderRadius: '999px', background: 'var(--ground)', overflow: 'hidden', border: '1px solid var(--line)', marginBottom: '0.5rem' }}>
-                  <div style={{ width: '16.8%', height: '100%', background: 'linear-gradient(90deg, var(--jade), var(--brass))', borderRadius: '999px' }} />
+                  <div style={{ width: '16.8%', height: '100%', background: 'linear-gradient(90deg, #0000FF, #3B82F6)', borderRadius: '999px' }} />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--fg-faint)' }}>
                   <span>16.8% consumed today</span>
@@ -361,47 +361,70 @@ export default function ProfileView() {
                 </div>
               </div>
 
-              <div style={{ padding: '1.75rem', borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)' }}>
+              <div style={{ padding: 'clamp(1rem, 3vw, 1.75rem)', borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--line)' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--hi)', marginBottom: '1.25rem' }}>Tier-2 Institutional Volume Matrix</h3>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid var(--line)', textAlign: 'left', color: 'var(--fg-faint)', fontSize: '0.74rem', textTransform: 'uppercase' }}>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Rail</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Daily Outbound</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Monthly Cap</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Single Ticket Cap</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
-                      <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>SEPA Instant (EUR)</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€250,000.00</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€5,000,000.00</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€100,000.00</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
-                      <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>SWIFT Wire Inbound</td>
-                      <td style={{ padding: '0.85rem 0.75rem', color: 'var(--coin-usdt)' }}>Unlimited</td>
-                      <td style={{ padding: '0.85rem 0.75rem', color: 'var(--coin-usdt)' }}>Unlimited</td>
-                      <td style={{ padding: '0.85rem 0.75rem', color: 'var(--coin-usdt)' }}>Unlimited</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid var(--line)' }}>
-                      <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>Crypto MPC Custody</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€500,000 eq.</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€10,000,000 eq.</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€250,000 eq.</td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>Instant RFQ Convert</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€1,000,000.00</td>
-                      <td style={{ padding: '0.85rem 0.75rem', color: 'var(--coin-usdt)' }}>Unlimited</td>
-                      <td style={{ padding: '0.85rem 0.75rem' }}>€1,000,000.00</td>
-                    </tr>
-                  </tbody>
-                </table>
+                
+                {/* Desktop Table View */}
+                <div className="desktop-table-view" style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '1px solid var(--line)', textAlign: 'left', color: 'var(--fg-faint)', fontSize: '0.74rem', textTransform: 'uppercase' }}>
+                        <th style={{ padding: '0.65rem 0.75rem' }}>Rail</th>
+                        <th style={{ padding: '0.65rem 0.75rem' }}>Daily Outbound</th>
+                        <th style={{ padding: '0.65rem 0.75rem' }}>Monthly Cap</th>
+                        <th style={{ padding: '0.65rem 0.75rem' }}>Single Ticket Cap</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                        <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>SEPA Instant (EUR)</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€250,000.00</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€5,000,000.00</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€100,000.00</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                        <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>SWIFT Wire Inbound</td>
+                        <td style={{ padding: '0.85rem 0.75rem', color: 'var(--jade-text-d)' }}>Unlimited</td>
+                        <td style={{ padding: '0.85rem 0.75rem', color: 'var(--jade-text-d)' }}>Unlimited</td>
+                        <td style={{ padding: '0.85rem 0.75rem', color: 'var(--jade-text-d)' }}>Unlimited</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid var(--line)' }}>
+                        <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>Crypto MPC Custody</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€500,000 eq.</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€10,000,000 eq.</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€250,000 eq.</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '0.85rem 0.75rem', fontWeight: 600 }}>Instant RFQ Convert</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€1,000,000.00</td>
+                        <td style={{ padding: '0.85rem 0.75rem', color: 'var(--jade-text-d)' }}>Unlimited</td>
+                        <td style={{ padding: '0.85rem 0.75rem' }}>€1,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile Cards View */}
+                <div className="mobile-cards-view" style={{ flexDirection: 'column', gap: '0.75rem' }}>
+                  {[
+                    { rail: 'SEPA Instant (EUR)', daily: '€250,000.00', monthly: '€5,000,000.00', single: '€100,000.00' },
+                    { rail: 'SWIFT Wire Inbound', daily: 'Unlimited', monthly: 'Unlimited', single: 'Unlimited' },
+                    { rail: 'Crypto MPC Custody', daily: '€500,000 eq.', monthly: '€10,000,000 eq.', single: '€250,000 eq.' },
+                    { rail: 'Instant RFQ Convert', daily: '€1,000,000.00', monthly: 'Unlimited', single: '€1,000,000.00' },
+                  ].map((m) => (
+                    <div key={m.rail} style={{ padding: '0.85rem 1rem', borderRadius: '12px', background: 'var(--ground)', border: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--hi)' }}>{m.rail}</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '0.76rem', color: 'var(--fg-dim)', marginTop: '4px' }}>
+                        <div>Daily: <strong style={{ color: 'var(--hi)' }}>{m.daily}</strong></div>
+                        <div>Single: <strong style={{ color: 'var(--hi)' }}>{m.single}</strong></div>
+                        <div style={{ gridColumn: '1 / -1' }}>Monthly: <strong style={{ color: 'var(--hi)' }}>{m.monthly}</strong></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div style={{ padding: '1.5rem', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(39, 161, 127, 0.08), rgba(226, 184, 102, 0.08))', border: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <div style={{ padding: '1.5rem', borderRadius: '16px', background: 'linear-gradient(135deg, rgba(0, 0, 255, 0.12), rgba(59, 130, 246, 0.06))', border: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
                   <div style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--hi)' }}>Need custom volume over €1,000,000 / day?</div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--fg-dim)', marginTop: '2px' }}>Apply for Tier-3 Custom Liquidity with bilateral credit settlement and dedicated treasury lines.</div>
@@ -431,7 +454,7 @@ export default function ProfileView() {
                         style={{
                           padding: '8px 16px',
                           borderRadius: '10px',
-                          border: isSelected ? '1px solid var(--jade-text-d)' : '1px solid var(--line)',
+                          border: isSelected ? '1px solid #3B82F6' : '1px solid var(--line)',
                           background: isSelected ? 'var(--surface-2)' : 'var(--ground)',
                           color: isSelected ? 'var(--hi)' : 'var(--fg-dim)',
                           fontWeight: isSelected ? 600 : 500,
@@ -538,7 +561,7 @@ export default function ProfileView() {
                 <div style={{ padding: '1.25rem', borderRadius: '12px', background: 'var(--ground)', border: '1px solid var(--line)', marginBottom: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                     <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--hi)' }}>Production API Key #1 (Trading Desk)</div>
-                    <span style={{ fontSize: '0.74rem', color: 'var(--coin-usdt)', fontWeight: 600 }}>Active</span>
+                    <span style={{ fontSize: '0.74rem', color: 'var(--jade-text-d)', fontWeight: 600 }}>Active</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--surface-2)', padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--line)' }}>
                     <code style={{ fontSize: '0.82rem', fontFamily: 'var(--f-mono)', color: 'var(--hi)', flex: 1 }}>
@@ -547,7 +570,7 @@ export default function ProfileView() {
                     <button
                       type="button"
                       onClick={handleCopyApiKey}
-                      style={{ background: 'none', border: 'none', color: copiedApiKey ? 'var(--coin-usdt)' : 'var(--fg-dim)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '4px' }}
+                      style={{ background: 'none', border: 'none', color: copiedApiKey ? 'var(--jade-text-d)' : 'var(--fg-dim)', cursor: 'pointer', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: '4px' }}
                     >
                       <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-copy" /></svg>
                       <span>{copiedApiKey ? 'Copied' : 'Copy'}</span>
@@ -589,7 +612,7 @@ export default function ProfileView() {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, var(--jade), #1A1A24)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: '1rem' }}>
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #0000FF, #1E1B4B)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: '1rem' }}>
                 MW
               </div>
               <div>
@@ -601,7 +624,7 @@ export default function ProfileView() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.82rem', color: 'var(--fg-dim)', borderTop: '1px solid var(--line)', paddingTop: '1rem', marginBottom: '1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Direct Telegram:</span>
-                <span style={{ color: 'var(--jade-text-d)', fontWeight: 600, fontFamily: 'var(--f-mono)' }}>@coincashy_desk_alpha</span>
+                <span style={{ color: '#3B82F6', fontWeight: 600, fontFamily: 'var(--f-mono)' }}>@coincashy_desk_alpha</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Desk Phone:</span>
@@ -622,7 +645,7 @@ export default function ProfileView() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-solid btn-sm"
-              style={{ width: '100%', justifyContent: 'center' }}
+              style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #0000FF, #3B82F6)', color: '#fff', border: 'none', boxShadow: '0 4px 16px rgba(0, 0, 255, 0.35)' }}
             >
               <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-mail" /></svg>
               Open OTC Direct Desk

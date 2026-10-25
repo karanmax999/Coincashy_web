@@ -70,8 +70,8 @@ export default function SignupPage() {
   return (
     <div
       style={{
-        padding: 'clamp(2rem, 5vw, 2.75rem)',
-        borderRadius: '24px',
+        padding: 'clamp(1.25rem, 3.5vw, 2rem)',
+        borderRadius: '20px',
         background: 'var(--surface)',
         border: '1px solid var(--line)',
         boxShadow: 'var(--shadow)',
@@ -79,42 +79,42 @@ export default function SignupPage() {
       }}
     >
       {/* Mobile Branding */}
-      <div style={{ textAlign: 'center', marginBottom: '1.75rem' }} className="lg:hidden">
+      <div style={{ textAlign: 'center', marginBottom: '1.25rem' }} className="lg:hidden">
         <Link href="/" style={{ display: 'inline-block' }}>
           <Image
             src="/media/logo-white.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-dark"
           />
           <Image
             src="/media/logo-black.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-paper"
           />
         </Link>
       </div>
 
       {/* Header */}
-      <div style={{ marginBottom: '1.75rem' }}>
+      <div style={{ marginBottom: '1.25rem' }}>
         <h2
           style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-            fontWeight: 600,
+            fontSize: '1.35rem',
+            fontWeight: 650,
             letterSpacing: '-0.02em',
             color: 'var(--hi)',
-            marginBottom: '0.5rem',
+            marginBottom: '0.35rem',
           }}
         >
-          Signup
+          Create Account
         </h2>
-        <p style={{ fontSize: '0.88rem', color: 'var(--low)', lineHeight: 1.5 }}>
-          Enter your email address and agree to our Terms and Conditions and Privacy Policy to continue.
+        <p style={{ fontSize: '0.8rem', color: 'var(--fg-dim)', lineHeight: 1.45 }}>
+          Enter your email address to establish your European crypto-fiat treasury.
         </p>
       </div>
 
@@ -123,28 +123,28 @@ export default function SignupPage() {
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '6px',
-          padding: '4px',
-          borderRadius: '12px',
+          gap: '4px',
+          padding: '3px',
+          borderRadius: '10px',
           background: 'var(--surface-2)',
           border: '1px solid var(--line)',
-          marginBottom: '1.5rem',
+          marginBottom: '1.25rem',
         }}
       >
         <button
           type="button"
           onClick={() => setAccountType('personal')}
           style={{
-            padding: '8px 12px',
-            borderRadius: '9px',
-            fontSize: '0.84rem',
+            padding: '6px 10px',
+            borderRadius: '7px',
+            fontSize: '0.78rem',
             fontWeight: 600,
             border: 'none',
             cursor: 'pointer',
             transition: 'background 0.2s, color 0.2s',
             background: accountType === 'personal' ? 'var(--ground)' : 'transparent',
             color: accountType === 'personal' ? 'var(--hi)' : 'var(--fg-dim)',
-            boxShadow: accountType === 'personal' ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+            boxShadow: accountType === 'personal' ? '0 2px 6px rgba(0,0,0,0.15)' : 'none',
           }}
         >
           Personal
@@ -153,16 +153,16 @@ export default function SignupPage() {
           type="button"
           onClick={() => setAccountType('corporate')}
           style={{
-            padding: '8px 12px',
-            borderRadius: '9px',
-            fontSize: '0.84rem',
+            padding: '6px 10px',
+            borderRadius: '7px',
+            fontSize: '0.78rem',
             fontWeight: 600,
             border: 'none',
             cursor: 'pointer',
             transition: 'background 0.2s, color 0.2s',
             background: accountType === 'corporate' ? 'var(--ground)' : 'transparent',
             color: accountType === 'corporate' ? 'var(--hi)' : 'var(--fg-dim)',
-            boxShadow: accountType === 'corporate' ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+            boxShadow: accountType === 'corporate' ? '0 2px 6px rgba(0,0,0,0.15)' : 'none',
           }}
         >
           Corporate / B2B
@@ -173,19 +173,19 @@ export default function SignupPage() {
       {error && (
         <div
           style={{
-            padding: '0.75rem 1rem',
-            borderRadius: '12px',
+            padding: '0.65rem 0.85rem',
+            borderRadius: '10px',
             background: 'rgba(242, 154, 136, 0.12)',
             border: '1px solid var(--coral)',
             color: 'var(--coral)',
-            fontSize: '0.84rem',
-            marginBottom: '1.5rem',
+            fontSize: '0.78rem',
+            marginBottom: '1.25rem',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
           }}
         >
-          <svg className="ic" style={{ width: 16, height: 16, flexShrink: 0 }}><use href="#i-x" /></svg>
+          <svg className="ic" style={{ width: 14, height: 14, flexShrink: 0 }}><use href="#i-x" /></svg>
           <span>{error}</span>
         </div>
       )}
@@ -193,16 +193,17 @@ export default function SignupPage() {
       {/* Form */}
       <form onSubmit={handleSubmit} noValidate>
         {/* Email Address */}
-        <div style={{ marginBottom: '1.25rem' }}>
+        <div style={{ marginBottom: '1rem' }}>
           <label
             htmlFor="signup-email"
             style={{
               display: 'block',
-              fontSize: '0.82rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
-              color: 'var(--fg)',
-              marginBottom: '0.5rem',
-              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              color: 'var(--fg-dim)',
+              marginBottom: '0.35rem',
             }}
           >
             {accountType === 'corporate' ? 'Corporate Work Email' : 'Email Address'}
@@ -218,32 +219,33 @@ export default function SignupPage() {
             required
             style={{
               width: '100%',
-              height: '48px',
-              padding: '0 1rem',
-              borderRadius: '12px',
+              height: '42px',
+              padding: '0 0.85rem',
+              borderRadius: '10px',
               background: 'var(--surface-2)',
               border: '1px solid var(--line-2)',
-              color: 'var(--fg)',
-              fontSize: '0.92rem',
+              color: 'var(--hi)',
+              fontSize: '0.84rem',
               outline: 'none',
               transition: 'border-color 0.2s',
             }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+            onFocus={(e) => (e.currentTarget.style.borderColor = '#3B82F6')}
             onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
           />
         </div>
 
         {/* Password Field */}
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div style={{ marginBottom: '1.25rem' }}>
           <label
             htmlFor="signup-password"
             style={{
               display: 'block',
-              fontSize: '0.82rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
-              color: 'var(--fg)',
-              marginBottom: '0.5rem',
-              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              color: 'var(--fg-dim)',
+              marginBottom: '0.35rem',
             }}
           >
             Password
@@ -260,17 +262,17 @@ export default function SignupPage() {
               required
               style={{
                 width: '100%',
-                height: '48px',
-                padding: '0 3rem 0 1rem',
-                borderRadius: '12px',
+                height: '42px',
+                padding: '0 2.5rem 0 0.85rem',
+                borderRadius: '10px',
                 background: 'var(--surface-2)',
                 border: '1px solid var(--line-2)',
-                color: 'var(--fg)',
-                fontSize: '0.92rem',
+                color: 'var(--hi)',
+                fontSize: '0.84rem',
                 outline: 'none',
                 transition: 'border-color 0.2s',
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#3B82F6')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
             />
             <button
@@ -279,7 +281,7 @@ export default function SignupPage() {
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               style={{
                 position: 'absolute',
-                right: '12px',
+                right: '10px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 color: 'var(--fg-dim)',
@@ -290,7 +292,7 @@ export default function SignupPage() {
                 cursor: 'pointer',
               }}
             >
-              <svg className="ic" style={{ width: 18, height: 18 }}>
+              <svg className="ic" style={{ width: 16, height: 16 }}>
                 <use href={showPassword ? '#i-eye' : '#i-eye'} />
               </svg>
             </button>
@@ -298,8 +300,8 @@ export default function SignupPage() {
 
           {/* Password Strength Indicator */}
           {password && (
-            <div style={{ marginTop: '0.6rem' }}>
-              <div style={{ display: 'flex', gap: '4px', height: '4px', marginBottom: '0.4rem' }}>
+            <div style={{ marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '3px', height: '3px', marginBottom: '0.35rem' }}>
                 {[1, 2, 3, 4].map((step) => (
                   <div
                     key={step}
@@ -312,7 +314,7 @@ export default function SignupPage() {
                   />
                 ))}
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.74rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
                 <span style={{ color: strengthColors[strength], fontWeight: 500 }}>{strengthLabels[strength]}</span>
                 <span style={{ color: 'var(--fg-faint)' }}>Min 8 chars with numbers &amp; symbols</span>
               </div>
@@ -321,22 +323,23 @@ export default function SignupPage() {
         </div>
 
         {/* Checkbox 1: Terms */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '0.85rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '0.75rem' }}>
           <input
             id="terms"
             type="checkbox"
             checked={agreeTerms}
             onChange={(e) => setAgreeTerms(e.target.checked)}
             style={{
-              width: '18px',
-              height: '18px',
+              width: '15px',
+              height: '15px',
               marginTop: '2px',
               borderRadius: '4px',
-              accentColor: 'var(--accent)',
+              accentColor: '#3B82F6',
               cursor: 'pointer',
+              flexShrink: 0,
             }}
           />
-          <label htmlFor="terms" style={{ fontSize: '0.82rem', color: 'var(--low)', cursor: 'pointer', lineHeight: 1.45 }}>
+          <label htmlFor="terms" style={{ fontSize: '0.75rem', color: 'var(--fg-dim)', cursor: 'pointer', lineHeight: 1.4 }}>
             I agree to the{' '}
             <Link href="/terms" target="_blank" style={{ color: 'var(--hi)', textDecoration: 'underline' }}>
               Terms and Conditions
@@ -349,27 +352,28 @@ export default function SignupPage() {
         </div>
 
         {/* Checkbox 2: Privacy */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '1.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '1.25rem' }}>
           <input
             id="privacy"
             type="checkbox"
             checked={agreePrivacy}
             onChange={(e) => setAgreePrivacy(e.target.checked)}
             style={{
-              width: '18px',
-              height: '18px',
+              width: '15px',
+              height: '15px',
               marginTop: '2px',
               borderRadius: '4px',
-              accentColor: 'var(--accent)',
+              accentColor: '#3B82F6',
               cursor: 'pointer',
+              flexShrink: 0,
             }}
           />
-          <label htmlFor="privacy" style={{ fontSize: '0.82rem', color: 'var(--low)', cursor: 'pointer', lineHeight: 1.45 }}>
+          <label htmlFor="privacy" style={{ fontSize: '0.75rem', color: 'var(--fg-dim)', cursor: 'pointer', lineHeight: 1.4 }}>
             I agree to the{' '}
             <Link href="/privacy" target="_blank" style={{ color: 'var(--hi)', textDecoration: 'underline' }}>
               Privacy Policy
             </Link>{' '}
-            and GDPR data processing
+            and GDPR processing
           </label>
         </div>
 
@@ -380,9 +384,9 @@ export default function SignupPage() {
           className="btn btn-solid"
           style={{
             width: '100%',
-            height: '48px',
-            borderRadius: '12px',
-            fontSize: '0.95rem',
+            height: '42px',
+            borderRadius: '10px',
+            fontSize: '0.86rem',
             fontWeight: 600,
             cursor: isLoading ? 'wait' : 'pointer',
             opacity: isLoading ? 0.75 : 1,
@@ -390,14 +394,18 @@ export default function SignupPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
+            background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+            color: '#fff',
+            border: 'none',
+            boxShadow: '0 4px 14px rgba(0, 0, 255, 0.3)',
           }}
         >
           {isLoading ? (
             <>
               <span
                 style={{
-                  width: '16px',
-                  height: '16px',
+                  width: '14px',
+                  height: '14px',
                   border: '2px solid currentColor',
                   borderRightColor: 'transparent',
                   borderRadius: '50%',
@@ -408,14 +416,14 @@ export default function SignupPage() {
               <span>Creating account...</span>
             </>
           ) : (
-            <span>Submit</span>
+            <span>Create Account</span>
           )}
         </button>
       </form>
 
       {/* Bottom Switcher */}
-      <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.85rem', color: 'var(--low)' }}>
-        Already signed up?{' '}
+      <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.78rem', color: 'var(--fg-dim)' }}>
+        Already have an account?{' '}
         <Link
           href="/auth/login"
           style={{

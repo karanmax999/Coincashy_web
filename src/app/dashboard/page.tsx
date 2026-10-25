@@ -69,7 +69,7 @@ export default function DashboardPage() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--ground)', color: 'var(--fg)', fontFamily: 'var(--f-body)' }}>
       
-      {/* ============ SIDEBAR ============ */}
+      {/* ============ SIDEBAR (DESKTOP) ============ */}
       <aside
         style={{
           width: '280px',
@@ -88,24 +88,48 @@ export default function DashboardPage() {
         <div>
           {/* Logo & Portal Badge */}
           <div style={{ padding: '1.5rem 1.5rem 1rem', borderBottom: '1px solid var(--line)' }}>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Image
-                src="/media/logo-white.png"
-                alt="Coincashy"
-                width={125}
-                height={28}
-                style={{ height: '28px', width: 'auto' }}
-                className="logo-on-dark"
-              />
-              <Image
-                src="/media/logo-black.png"
-                alt="Coincashy"
-                width={125}
-                height={28}
-                style={{ height: '28px', width: 'auto' }}
-                className="logo-on-paper"
-              />
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Image
+                  src="/media/logo-white.png"
+                  alt="Coincashy"
+                  width={125}
+                  height={28}
+                  style={{ height: '28px', width: 'auto' }}
+                  className="logo-on-dark"
+                  priority
+                />
+                <Image
+                  src="/media/logo-black.png"
+                  alt="Coincashy"
+                  width={125}
+                  height={28}
+                  style={{ height: '28px', width: 'auto' }}
+                  className="logo-on-paper"
+                  priority
+                />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(false)}
+                className="mobile-only"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  background: 'var(--surface-2)',
+                  border: '1px solid var(--line)',
+                  color: 'var(--fg)',
+                  cursor: 'pointer',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '0.85rem',
+                }}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
             <div style={{ marginTop: '0.6rem', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.72rem', color: 'var(--jade-text-d)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
               <span className="dot live" style={{ width: 6, height: 6 }} />
               <span>Trading &amp; Treasury Portal</span>
@@ -135,8 +159,8 @@ export default function DashboardPage() {
                         fontSize: '0.86rem',
                         fontWeight: isActive ? 600 : 500,
                         color: isActive ? 'var(--hi)' : 'var(--fg-dim)',
-                        background: isActive ? 'var(--surface-2)' : 'transparent',
-                        border: isActive ? '1px solid var(--line-2)' : '1px solid transparent',
+                        background: isActive ? 'rgba(0, 0, 255, 0.08)' : 'transparent',
+                        border: isActive ? '1px solid rgba(107, 107, 255, 0.3)' : '1px solid transparent',
                         transition: 'all 0.15s ease',
                         cursor: 'pointer',
                         textAlign: 'left',
@@ -174,7 +198,7 @@ export default function DashboardPage() {
               cursor: 'pointer',
               textAlign: 'left',
               transition: 'all 0.15s ease',
-              boxShadow: activeTab === 'profile' ? '0 2px 10px rgba(39, 161, 127, 0.15)' : 'none',
+              boxShadow: activeTab === 'profile' ? '0 2px 12px rgba(0, 0, 255, 0.25)' : 'none',
             }}
             title="Open Corporate Profile & Organization Command"
           >
@@ -184,7 +208,7 @@ export default function DashboardPage() {
                   width: 36,
                   height: 36,
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--jade), var(--brass))',
+                  background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
                   color: '#fff',
                   display: 'flex',
                   alignItems: 'center',
@@ -200,7 +224,7 @@ export default function DashboardPage() {
               <div>
                 <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--hi)' }}>Corporate Desk</div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--jade-text-d)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--coin-usdt)' }} />
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3B82F6' }} />
                   <span>Verified KYB Tier-2</span>
                 </div>
               </div>
@@ -221,87 +245,135 @@ export default function DashboardPage() {
         </div>
       </aside>
 
+      {/* Mobile Drawer Backdrop Overlay */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
+            zIndex: 35,
+          }}
+          className="mobile-only"
+        />
+      )}
+
       {/* ============ MAIN CONTENT AREA ============ */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         
         {/* Top Header */}
         <header
           style={{
-            height: '64px',
+            height: '60px',
             borderBottom: '1px solid var(--line)',
             background: 'var(--surface)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 clamp(1rem, 3vw, 2rem)',
+            padding: '0 clamp(1rem, 2.5vw, 2rem)',
             position: 'sticky',
             top: 0,
             zIndex: 30,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden"
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: '8px',
-                border: '1px solid var(--line)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'var(--surface-2)',
-                color: 'var(--fg)',
-                cursor: 'pointer',
-              }}
-              aria-label="Toggle Navigation"
-            >
-              <svg className="ic" style={{ width: 18, height: 18 }}><use href="#i-layers" /></svg>
-            </button>
-            <h1 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--hi)' }}>
-              {getHeaderTitle()}
-            </h1>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', borderRadius: '999px', background: 'var(--surface-2)', border: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--coin-usdt)', fontWeight: 500 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--coin-usdt)' }} />
-              <span>VASP Regulated (KRS: 0001135823)</span>
+          {/* ============ DESKTOP HEADER (>= 1024px) ============ */}
+          <div className="desktop-only" style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <h1 style={{ fontFamily: 'var(--f-serif), Georgia, serif', fontSize: '1.45rem', fontStyle: 'italic', fontWeight: 400, color: 'var(--hi)', letterSpacing: '-0.015em', margin: 0 }}>
+                {getHeaderTitle()}
+              </h1>
             </div>
 
-            <button
-              className="theme-btn"
-              type="button"
-              data-theme-toggle
-              aria-label="Switch to light mode"
-              title="Switch theme"
-              onClick={handleToggleTheme}
-            >
-              <svg className="ic ic-sun" aria-hidden="true"><use href="#i-sun" /></svg>
-              <svg className="ic ic-moon" aria-hidden="true"><use href="#i-moon" /></svg>
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', borderRadius: '999px', background: 'var(--surface-2)', border: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--jade-text-d)', fontWeight: 500 }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3B82F6' }} />
+                <span>VASP Regulated (KRS: 0001135823)</span>
+              </div>
 
-            <Link
-              href="/"
-              style={{
-                fontSize: '0.82rem',
-                color: 'var(--fg-dim)',
-                textDecoration: 'none',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                border: '1px solid var(--line)',
-                background: 'var(--surface-2)',
-              }}
-            >
-              Public Site ↗
+              <button
+                className="theme-btn"
+                type="button"
+                data-theme-toggle
+                aria-label="Switch to light mode"
+                title="Switch theme"
+                onClick={handleToggleTheme}
+              >
+                <svg className="ic ic-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+                <svg className="ic ic-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+              </button>
+            </div>
+          </div>
+
+          {/* ============ MOBILE HEADER (< 1024px) ============ */}
+          <div className="mobile-only" style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Left: Coincashy Logo */}
+            <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+              <Image
+                src="/media/logo-white.png"
+                alt="Coincashy"
+                width={110}
+                height={24}
+                style={{ height: '24px', width: 'auto' }}
+                className="logo-on-dark"
+                priority
+              />
+              <Image
+                src="/media/logo-black.png"
+                alt="Coincashy"
+                width={110}
+                height={24}
+                style={{ height: '24px', width: 'auto' }}
+                className="logo-on-paper"
+                priority
+              />
             </Link>
+
+            {/* Right: Theme Toggle & Modules Drawer */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                className="theme-btn"
+                type="button"
+                data-theme-toggle
+                aria-label="Switch theme"
+                title="Switch theme"
+                onClick={handleToggleTheme}
+                style={{ width: 34, height: 34 }}
+              >
+                <svg className="ic ic-sun" aria-hidden="true"><use href="#i-sun" /></svg>
+                <svg className="ic ic-moon" aria-hidden="true"><use href="#i-moon" /></svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: '8px',
+                  background: 'var(--surface-2)',
+                  border: '1px solid var(--line)',
+                  color: 'var(--fg)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+                title="All 12 Treasury Modules"
+                aria-label="Toggle All Modules"
+              >
+                <svg className="ic" style={{ width: 16, height: 16 }}><use href="#i-layers" /></svg>
+              </button>
+            </div>
           </div>
         </header>
 
         {/* Main View Container */}
-        <main style={{ padding: 'clamp(1.5rem, 3vw, 2.5rem)', maxWidth: '1400px', width: '100%', margin: '0 auto' }}>
+        <main className="dashboard-main-content" style={{ padding: 'clamp(0.85rem, 2.5vw, 2.5rem)', maxWidth: '1400px', width: '100%', margin: '0 auto' }}>
           
           {/* Module 1: Dashboard Overview */}
           {activeTab === 'overview' && (
@@ -371,7 +443,50 @@ export default function DashboardPage() {
         </main>
       </div>
 
+      {/* ============ FIXED MOBILE BOTTOM NAVIGATION DOCK (ETHER.FI PATTERN) ============ */}
+      <nav className="mobile-bottom-dock" aria-label="Mobile Navigation">
+        <button
+          type="button"
+          onClick={() => setActiveTab('overview')}
+          className={`dock-tab ${activeTab === 'overview' ? 'active' : ''}`}
+        >
+          <svg className="ic"><use href="#i-store" /></svg>
+          <span>Home</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('transactions')}
+          className={`dock-tab ${activeTab === 'transactions' ? 'active' : ''}`}
+        >
+          <svg className="ic"><use href="#i-receipt" /></svg>
+          <span>Portfolio</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('convert')}
+          className={`dock-tab ${activeTab === 'convert' ? 'active' : ''}`}
+        >
+          <svg className="ic"><use href="#i-repeat" /></svg>
+          <span>Swap</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('fiat-deposit')}
+          className={`dock-tab ${activeTab === 'fiat-deposit' ? 'active' : ''}`}
+        >
+          <svg className="ic"><use href="#i-landmark" /></svg>
+          <span>Cash</span>
+        </button>
+      </nav>
+
       <style jsx>{`
+        .mobile-bottom-dock {
+          display: none;
+        }
+
         @media (max-width: 1023px) {
           .dashboard-sidebar {
             position: fixed !important;
@@ -380,6 +495,63 @@ export default function DashboardPage() {
           }
           .dashboard-sidebar.open {
             left: 0 !important;
+          }
+
+          .mobile-bottom-dock {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--line);
+            z-index: 50;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 4px;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+          }
+
+          .dock-tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: transparent;
+            border: none;
+            color: var(--fg-dim);
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+          }
+
+          .dock-tab .ic {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.15s ease, color 0.15s ease;
+          }
+
+          .dock-tab.active {
+            color: var(--hi);
+            font-weight: 600;
+          }
+
+          .dock-tab.active .ic {
+            color: #3B82F6;
+            transform: translateY(-1px);
+          }
+
+          .dashboard-main-content {
+            padding-bottom: 96px !important;
           }
         }
       `}</style>

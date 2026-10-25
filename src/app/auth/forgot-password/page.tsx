@@ -29,8 +29,8 @@ export default function ForgotPasswordPage() {
   return (
     <div
       style={{
-        padding: 'clamp(2rem, 5vw, 2.75rem)',
-        borderRadius: '24px',
+        padding: 'clamp(1.25rem, 3.5vw, 2rem)',
+        borderRadius: '20px',
         background: 'var(--surface)',
         border: '1px solid var(--line)',
         boxShadow: 'var(--shadow)',
@@ -38,63 +38,67 @@ export default function ForgotPasswordPage() {
       }}
     >
       {/* Mobile Branding */}
-      <div style={{ textAlign: 'center', marginBottom: '1.75rem' }} className="lg:hidden">
+      <div style={{ textAlign: 'center', marginBottom: '1.25rem' }} className="lg:hidden">
         <Link href="/" style={{ display: 'inline-block' }}>
           <Image
             src="/media/logo-white.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-dark"
           />
           <Image
             src="/media/logo-black.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-paper"
           />
         </Link>
       </div>
 
       {isSubmitted ? (
-        <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+        <div style={{ textAlign: 'center', padding: '0.5rem 0' }}>
           <div
             style={{
-              width: '56px',
-              height: '56px',
+              width: '48px',
+              height: '48px',
               borderRadius: '50%',
               background: 'rgba(39, 161, 127, 0.15)',
               color: 'var(--coin-usdt)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1.5rem',
-              border: '1px solid rgba(39, 161, 127, 0.3)',
+              margin: '0 auto 1.25rem',
+              border: '1px solid rgba(107, 107, 255, 0.3)',
             }}
           >
-            <svg className="ic" style={{ width: 28, height: 28 }}><use href="#i-check" /></svg>
+            <svg className="ic" style={{ width: 22, height: 22 }}><use href="#i-check" /></svg>
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--hi)', marginBottom: '0.75rem' }}>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 650, color: 'var(--hi)', marginBottom: '0.5rem' }}>
             Check your email
           </h2>
-          <p style={{ fontSize: '0.9rem', color: 'var(--low)', lineHeight: 1.6, marginBottom: '2rem' }}>
-            If an account exists for <b style={{ color: 'var(--fg)' }}>{identifier}</b>, we have dispatched a secure password reset link. Please check your inbox and spam folder.
+          <p style={{ fontSize: '0.82rem', color: 'var(--fg-dim)', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+            If an account exists for <b style={{ color: 'var(--hi)' }}>{identifier}</b>, we have dispatched a secure password reset link. Please check your inbox and spam folder.
           </p>
           <Link
             href="/auth/login"
             className="btn btn-solid"
             style={{
               width: '100%',
-              height: '48px',
-              borderRadius: '12px',
-              fontSize: '0.95rem',
+              height: '42px',
+              borderRadius: '10px',
+              fontSize: '0.86rem',
               fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+              color: '#fff',
+              border: 'none',
+              boxShadow: '0 4px 14px rgba(0, 0, 255, 0.3)',
             }}
           >
             Back to login
@@ -102,54 +106,55 @@ export default function ForgotPasswordPage() {
         </div>
       ) : (
         <>
-          <div style={{ marginBottom: '2rem' }}>
+          <div style={{ marginBottom: '1.5rem' }}>
             <h2
               style={{
-                fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-                fontWeight: 600,
+                fontSize: '1.35rem',
+                fontWeight: 650,
                 letterSpacing: '-0.02em',
                 color: 'var(--hi)',
-                marginBottom: '0.5rem',
+                marginBottom: '0.35rem',
               }}
             >
               Reset password
             </h2>
-            <p style={{ fontSize: '0.88rem', color: 'var(--low)', lineHeight: 1.5 }}>
-              Enter your verified email or username and we'll send a secure link to reset your account password.
+            <p style={{ fontSize: '0.8rem', color: 'var(--fg-dim)', lineHeight: 1.45 }}>
+              Enter your verified email or username and we'll send a secure link to reset your password.
             </p>
           </div>
 
           {error && (
             <div
               style={{
-                padding: '0.75rem 1rem',
-                borderRadius: '12px',
+                padding: '0.65rem 0.85rem',
+                borderRadius: '10px',
                 background: 'rgba(242, 154, 136, 0.12)',
                 border: '1px solid var(--coral)',
                 color: 'var(--coral)',
-                fontSize: '0.84rem',
-                marginBottom: '1.5rem',
+                fontSize: '0.78rem',
+                marginBottom: '1.25rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
               }}
             >
-              <svg className="ic" style={{ width: 16, height: 16, flexShrink: 0 }}><use href="#i-x" /></svg>
+              <svg className="ic" style={{ width: 14, height: 14, flexShrink: 0 }}><use href="#i-x" /></svg>
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} noValidate>
-            <div style={{ marginBottom: '1.75rem' }}>
+            <div style={{ marginBottom: '1.25rem' }}>
               <label
                 htmlFor="reset-identifier"
                 style={{
                   display: 'block',
-                  fontSize: '0.82rem',
+                  fontSize: '0.74rem',
                   fontWeight: 600,
-                  color: 'var(--fg)',
-                  marginBottom: '0.5rem',
-                  letterSpacing: '-0.01em',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  color: 'var(--fg-dim)',
+                  marginBottom: '0.35rem',
                 }}
               >
                 Username or Email
@@ -164,17 +169,17 @@ export default function ForgotPasswordPage() {
                 required
                 style={{
                   width: '100%',
-                  height: '48px',
-                  padding: '0 1rem',
-                  borderRadius: '12px',
+                  height: '42px',
+                  padding: '0 0.85rem',
+                  borderRadius: '10px',
                   background: 'var(--surface-2)',
                   border: '1px solid var(--line-2)',
-                  color: 'var(--fg)',
-                  fontSize: '0.92rem',
+                  color: 'var(--hi)',
+                  fontSize: '0.84rem',
                   outline: 'none',
                   transition: 'border-color 0.2s',
                 }}
-                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+                onFocus={(e) => (e.currentTarget.style.borderColor = '#3B82F6')}
                 onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
               />
             </div>
@@ -185,9 +190,9 @@ export default function ForgotPasswordPage() {
               className="btn btn-solid"
               style={{
                 width: '100%',
-                height: '48px',
-                borderRadius: '12px',
-                fontSize: '0.95rem',
+                height: '42px',
+                borderRadius: '10px',
+                fontSize: '0.86rem',
                 fontWeight: 600,
                 cursor: isLoading ? 'wait' : 'pointer',
                 opacity: isLoading ? 0.75 : 1,
@@ -195,13 +200,17 @@ export default function ForgotPasswordPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
+                background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+                color: '#fff',
+                border: 'none',
+                boxShadow: '0 4px 14px rgba(0, 0, 255, 0.3)',
               }}
             >
               {isLoading ? 'Sending link...' : 'Send reset link'}
             </button>
           </form>
 
-          <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.85rem' }}>
+          <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.78rem' }}>
             <Link
               href="/auth/login"
               style={{
@@ -211,7 +220,7 @@ export default function ForgotPasswordPage() {
                 alignItems: 'center',
                 gap: '6px',
               }}
-              className="hover:text-[var(--fg)]"
+              className="hover:text-[var(--hi)]"
             >
               <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-chevron-left" /></svg>
               <span>Back to login</span>

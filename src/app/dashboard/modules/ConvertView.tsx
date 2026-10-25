@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import CryptoLogo from '@/components/CryptoLogo';
 
 export default function ConvertView() {
   const [fromAsset, setFromAsset] = useState<'BTC' | 'USDT' | 'EUR' | 'ETH'>('BTC');
@@ -61,7 +62,7 @@ export default function ConvertView() {
       <div style={{ textAlign: 'center' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--hi)' }}>Instant RFQ Conversion Desk</h2>
         <p style={{ fontSize: '0.86rem', color: 'var(--fg-dim)', marginTop: '4px' }}>
-          0% slippage institutional swaps executed at real-time DIA oracle rates.
+          0% slippage institutional swaps executed at real-time institutional liquidity rates.
         </p>
       </div>
 
@@ -71,7 +72,7 @@ export default function ConvertView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
           position: 'relative',
         }}
@@ -85,7 +86,7 @@ export default function ConvertView() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.76rem', color: 'var(--fg-dim)' }}>
             <span>Refreshes in:</span>
-            <span style={{ fontFamily: 'var(--f-mono)', color: 'var(--hi)', fontWeight: 600 }}>{timeLeft}s</span>
+            <span style={{ fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums', color: 'var(--hi)', fontWeight: 600 }}>{timeLeft}s</span>
           </div>
         </div>
 
@@ -101,10 +102,10 @@ export default function ConvertView() {
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--fg-faint)', marginBottom: '0.5rem' }}>
             <span>YOU PAY</span>
-            <span>Available: 1.0245 BTC</span>
+            <span style={{ fontVariantNumeric: 'tabular-nums lining-nums' }}>Available: 1.0245 BTC</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <input
               type="number"
               value={fromAmount}
@@ -112,12 +113,15 @@ export default function ConvertView() {
               placeholder="0.00"
               style={{
                 flex: 1,
+                minWidth: '80px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                fontFamily: 'var(--f-mono)',
+                fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                fontWeight: 650,
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                letterSpacing: '-0.02em',
                 outline: 'none',
               }}
             />
@@ -134,30 +138,33 @@ export default function ConvertView() {
                 color: 'var(--gold, #E2B866)',
                 fontWeight: 600,
                 cursor: 'pointer',
+                flexShrink: 0,
               }}
             >
               MAX
             </button>
 
-            <select
-              value={fromAsset}
-              onChange={(e) => setFromAsset(e.target.value as any)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: '10px',
-                background: 'var(--surface-2)',
-                border: '1px solid var(--line)',
-                color: 'var(--hi)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              <option value="BTC">BTC</option>
-              <option value="ETH">ETH</option>
-              <option value="USDT">USDT</option>
-              <option value="EUR">EUR</option>
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px' }}>
+              <CryptoLogo symbol={fromAsset} size={22} />
+              <select
+                value={fromAsset}
+                onChange={(e) => setFromAsset(e.target.value as any)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--hi)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="USDT">USDT</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -203,38 +210,45 @@ export default function ConvertView() {
             <span>0% Slippage Guaranteed</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
                 flex: 1,
+                minWidth: '80px',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                fontFamily: 'var(--f-mono)',
+                fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                fontWeight: 650,
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                letterSpacing: '-0.02em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {calculatedTo}
             </div>
 
-            <select
-              value={toAsset}
-              onChange={(e) => setToAsset(e.target.value as any)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: '10px',
-                background: 'var(--surface-2)',
-                border: '1px solid var(--line)',
-                color: 'var(--hi)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              <option value="USDT">USDT</option>
-              <option value="BTC">BTC</option>
-              <option value="EUR">EUR</option>
-              <option value="ETH">ETH</option>
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px' }}>
+              <CryptoLogo symbol={toAsset} size={22} />
+              <select
+                value={toAsset}
+                onChange={(e) => setToAsset(e.target.value as any)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--hi)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                <option value="USDT">USDT</option>
+                <option value="BTC">BTC</option>
+                <option value="EUR">EUR</option>
+                <option value="ETH">ETH</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -266,10 +280,11 @@ export default function ConvertView() {
             width: '100%',
             padding: '14px',
             fontSize: '1rem',
-            fontWeight: 600,
+            fontWeight: 700,
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, var(--jade), var(--brass))',
-            color: '#fff',
+            background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+            color: '#ffffff',
+            boxShadow: '0 4px 20px rgba(0, 0, 255, 0.35)',
             border: 'none',
             borderRadius: '12px',
             cursor: isExecuting || numFrom <= 0 ? 'not-allowed' : 'pointer',
@@ -309,7 +324,7 @@ export default function ConvertView() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(39, 161, 127, 0.15)', color: 'var(--coin-usdt)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(0, 0, 255, 0.15)', color: 'var(--jade-text-d)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
               <svg className="ic" style={{ width: 28, height: 28 }}><use href="#i-check" /></svg>
             </div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 600, color: 'var(--hi)' }}>Conversion Completed</h3>

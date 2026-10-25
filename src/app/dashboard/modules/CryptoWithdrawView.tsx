@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import CryptoLogo from '@/components/CryptoLogo';
 
 export default function CryptoWithdrawView() {
   const [selectedAsset, setSelectedAsset] = useState<'USDT' | 'BTC' | 'ETH' | 'USDC'>('USDT');
@@ -50,7 +51,7 @@ export default function CryptoWithdrawView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
         }}
       >
@@ -68,17 +69,23 @@ export default function CryptoWithdrawView() {
                   type="button"
                   onClick={() => setSelectedAsset(asset)}
                   style={{
-                    padding: '10px',
+                    padding: '8px 10px',
                     borderRadius: '12px',
-                    border: isSelected ? '1px solid var(--jade-text-d)' : '1px solid var(--line)',
+                    border: isSelected ? '1px solid #3B82F6' : '1px solid var(--line)',
                     background: isSelected ? 'var(--surface-2)' : 'var(--ground)',
                     color: isSelected ? 'var(--hi)' : 'var(--fg-dim)',
-                    fontWeight: isSelected ? 600 : 500,
+                    fontWeight: isSelected ? 650 : 500,
                     cursor: 'pointer',
                     fontSize: '0.86rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    transition: 'all 0.15s ease',
                   }}
                 >
-                  {asset}
+                  <CryptoLogo symbol={asset} size={22} />
+                  <span>{asset}</span>
                 </button>
               );
             })}
@@ -125,7 +132,7 @@ export default function CryptoWithdrawView() {
             <span>Available: 5,030.00 {selectedAsset}</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <input
               type="number"
               value={amount}
@@ -133,12 +140,15 @@ export default function CryptoWithdrawView() {
               placeholder="0.00"
               style={{
                 flex: 1,
+                minWidth: '80px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                fontFamily: 'var(--f-mono)',
+                fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                fontWeight: 650,
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                letterSpacing: '-0.02em',
                 outline: 'none',
               }}
             />
@@ -152,15 +162,16 @@ export default function CryptoWithdrawView() {
                 background: 'var(--surface-2)',
                 border: '1px solid var(--line)',
                 fontSize: '0.72rem',
-                color: 'var(--gold, #E2B866)',
+                color: '#3B82F6',
                 fontWeight: 600,
                 cursor: 'pointer',
+                flexShrink: 0,
               }}
             >
               MAX
             </button>
 
-            <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--hi)' }}>{selectedAsset}</span>
+            <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--hi)', flexShrink: 0 }}>{selectedAsset}</span>
           </div>
         </div>
 

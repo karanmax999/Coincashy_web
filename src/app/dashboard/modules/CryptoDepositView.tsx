@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import CryptoLogo from '@/components/CryptoLogo';
 
 export default function CryptoDepositView() {
   const [selectedAsset, setSelectedAsset] = useState<'USDT' | 'BTC' | 'ETH' | 'USDC'>('USDT');
@@ -54,7 +55,7 @@ export default function CryptoDepositView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
         }}
       >
@@ -76,18 +77,23 @@ export default function CryptoDepositView() {
                     setSelectedNetwork(nets[0] || '');
                   }}
                   style={{
-                    padding: '10px',
+                    padding: '8px 10px',
                     borderRadius: '12px',
-                    border: isSelected ? '1px solid var(--jade-text-d)' : '1px solid var(--line)',
+                    border: isSelected ? '1px solid #3B82F6' : '1px solid var(--line)',
                     background: isSelected ? 'var(--surface-2)' : 'var(--ground)',
                     color: isSelected ? 'var(--hi)' : 'var(--fg-dim)',
-                    fontWeight: isSelected ? 600 : 500,
+                    fontWeight: isSelected ? 650 : 500,
                     cursor: 'pointer',
                     fontSize: '0.86rem',
-                    textAlign: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    transition: 'all 0.15s ease',
                   }}
                 >
-                  {asset}
+                  <CryptoLogo symbol={asset} size={22} />
+                  <span>{asset}</span>
                 </button>
               );
             })}
@@ -174,7 +180,7 @@ export default function CryptoDepositView() {
               <rect x="45" y="15" width="8" height="8" fill="#000000" />
               <rect x="45" y="30" width="8" height="8" fill="#000000" />
               <rect x="25" y="45" width="8" height="8" fill="#000000" />
-              <rect x="45" y="45" width="12" height="12" fill="#27A17F" />
+              <rect x="45" y="45" width="12" height="12" fill="#3B82F6" />
               <rect x="65" y="45" width="8" height="8" fill="#000000" />
               <rect x="45" y="65" width="8" height="8" fill="#000000" />
               <rect x="60" y="65" width="8" height="8" fill="#000000" />

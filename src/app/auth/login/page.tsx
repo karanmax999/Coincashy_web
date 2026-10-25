@@ -40,8 +40,8 @@ export default function LoginPage() {
   return (
     <div
       style={{
-        padding: 'clamp(2rem, 5vw, 2.75rem)',
-        borderRadius: '24px',
+        padding: 'clamp(1.25rem, 3.5vw, 2rem)',
+        borderRadius: '20px',
         background: 'var(--surface)',
         border: '1px solid var(--line)',
         boxShadow: 'var(--shadow)',
@@ -49,41 +49,41 @@ export default function LoginPage() {
       }}
     >
       {/* Mobile Branding (only visible on smaller screens) */}
-      <div style={{ textAlign: 'center', marginBottom: '1.75rem' }} className="lg:hidden">
+      <div style={{ textAlign: 'center', marginBottom: '1.25rem' }} className="lg:hidden">
         <Link href="/" style={{ display: 'inline-block' }}>
           <Image
             src="/media/logo-white.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-dark"
           />
           <Image
             src="/media/logo-black.png"
             alt="Coincashy"
-            width={130}
-            height={30}
-            style={{ height: '30px', width: 'auto' }}
+            width={120}
+            height={26}
+            style={{ height: '26px', width: 'auto' }}
             className="logo-on-paper"
           />
         </Link>
       </div>
 
       {/* Header */}
-      <div style={{ marginBottom: '2rem' }}>
+      <div style={{ marginBottom: '1.5rem' }}>
         <h2
           style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2rem)',
-            fontWeight: 600,
+            fontSize: '1.35rem',
+            fontWeight: 650,
             letterSpacing: '-0.02em',
             color: 'var(--hi)',
-            marginBottom: '0.5rem',
+            marginBottom: '0.35rem',
           }}
         >
           Login
         </h2>
-        <p style={{ fontSize: '0.88rem', color: 'var(--low)', lineHeight: 1.5 }}>
+        <p style={{ fontSize: '0.8rem', color: 'var(--fg-dim)', lineHeight: 1.45 }}>
           Enter your credentials to access your trading workspace and accounts.
         </p>
       </div>
@@ -92,19 +92,19 @@ export default function LoginPage() {
       {error && (
         <div
           style={{
-            padding: '0.75rem 1rem',
-            borderRadius: '12px',
+            padding: '0.65rem 0.85rem',
+            borderRadius: '10px',
             background: 'rgba(242, 154, 136, 0.12)',
             border: '1px solid var(--coral)',
             color: 'var(--coral)',
-            fontSize: '0.84rem',
-            marginBottom: '1.5rem',
+            fontSize: '0.78rem',
+            marginBottom: '1.25rem',
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
           }}
         >
-          <svg className="ic" style={{ width: 16, height: 16, flexShrink: 0 }}><use href="#i-x" /></svg>
+          <svg className="ic" style={{ width: 14, height: 14, flexShrink: 0 }}><use href="#i-x" /></svg>
           <span>{error}</span>
         </div>
       )}
@@ -112,19 +112,20 @@ export default function LoginPage() {
       {/* Form */}
       <form onSubmit={handleSubmit} noValidate>
         {/* Username / Email Field */}
-        <div style={{ marginBottom: '1.25rem' }}>
+        <div style={{ marginBottom: '1rem' }}>
           <label
             htmlFor="identifier"
             style={{
               display: 'block',
-              fontSize: '0.82rem',
+              fontSize: '0.74rem',
               fontWeight: 600,
-              color: 'var(--fg)',
-              marginBottom: '0.5rem',
-              letterSpacing: '-0.01em',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              color: 'var(--fg-dim)',
+              marginBottom: '0.35rem',
             }}
           >
-            Username
+            Username or Email
           </label>
           <div style={{ position: 'relative' }}>
             <input
@@ -138,32 +139,33 @@ export default function LoginPage() {
               required
               style={{
                 width: '100%',
-                height: '48px',
-                padding: '0 1rem',
-                borderRadius: '12px',
+                height: '42px',
+                padding: '0 0.85rem',
+                borderRadius: '10px',
                 background: 'var(--surface-2)',
                 border: '1px solid var(--line-2)',
-                color: 'var(--fg)',
-                fontSize: '0.92rem',
+                color: 'var(--hi)',
+                fontSize: '0.84rem',
                 transition: 'border-color 0.2s, box-shadow 0.2s',
                 outline: 'none',
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#3B82F6')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
             />
           </div>
         </div>
 
         {/* Password Field */}
-        <div style={{ marginBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+        <div style={{ marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
             <label
               htmlFor="password"
               style={{
-                fontSize: '0.82rem',
+                fontSize: '0.74rem',
                 fontWeight: 600,
-                color: 'var(--fg)',
-                letterSpacing: '-0.01em',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+                color: 'var(--fg-dim)',
               }}
             >
               Password
@@ -171,7 +173,7 @@ export default function LoginPage() {
             <Link
               href="/auth/forgot-password"
               style={{
-                fontSize: '0.8rem',
+                fontSize: '0.74rem',
                 color: 'var(--jade-text-d)',
                 fontWeight: 500,
                 transition: 'opacity 0.2s',
@@ -193,17 +195,17 @@ export default function LoginPage() {
               required
               style={{
                 width: '100%',
-                height: '48px',
-                padding: '0 3rem 0 1rem',
-                borderRadius: '12px',
+                height: '42px',
+                padding: '0 2.5rem 0 0.85rem',
+                borderRadius: '10px',
                 background: 'var(--surface-2)',
                 border: '1px solid var(--line-2)',
-                color: 'var(--fg)',
-                fontSize: '0.92rem',
+                color: 'var(--hi)',
+                fontSize: '0.84rem',
                 transition: 'border-color 0.2s, box-shadow 0.2s',
                 outline: 'none',
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#3B82F6')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
             />
             <button
@@ -212,7 +214,7 @@ export default function LoginPage() {
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               style={{
                 position: 'absolute',
-                right: '12px',
+                right: '10px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 color: 'var(--fg-dim)',
@@ -223,7 +225,7 @@ export default function LoginPage() {
                 cursor: 'pointer',
               }}
             >
-              <svg className="ic" style={{ width: 18, height: 18 }}>
+              <svg className="ic" style={{ width: 16, height: 16 }}>
                 <use href={showPassword ? '#i-eye' : '#i-eye'} />
               </svg>
             </button>
@@ -231,21 +233,21 @@ export default function LoginPage() {
         </div>
 
         {/* Remember Me Checkbox */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
           <input
             id="remember"
             type="checkbox"
             checked={rememberMe}
             onChange={(e) => setRememberMe(e.target.checked)}
             style={{
-              width: '16px',
-              height: '16px',
+              width: '15px',
+              height: '15px',
               borderRadius: '4px',
-              accentColor: 'var(--accent)',
+              accentColor: '#3B82F6',
               cursor: 'pointer',
             }}
           />
-          <label htmlFor="remember" style={{ fontSize: '0.82rem', color: 'var(--low)', cursor: 'pointer', userSelect: 'none' }}>
+          <label htmlFor="remember" style={{ fontSize: '0.76rem', color: 'var(--fg-dim)', cursor: 'pointer', userSelect: 'none' }}>
             Remember this device for 30 days
           </label>
         </div>
@@ -257,9 +259,9 @@ export default function LoginPage() {
           className="btn btn-solid"
           style={{
             width: '100%',
-            height: '48px',
-            borderRadius: '12px',
-            fontSize: '0.95rem',
+            height: '42px',
+            borderRadius: '10px',
+            fontSize: '0.86rem',
             fontWeight: 600,
             cursor: isLoading ? 'wait' : 'pointer',
             opacity: isLoading ? 0.75 : 1,
@@ -267,14 +269,18 @@ export default function LoginPage() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
+            background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+            color: '#fff',
+            border: 'none',
+            boxShadow: '0 4px 14px rgba(0, 0, 255, 0.3)',
           }}
         >
           {isLoading ? (
             <>
               <span
                 style={{
-                  width: '16px',
-                  height: '16px',
+                  width: '14px',
+                  height: '14px',
                   border: '2px solid currentColor',
                   borderRightColor: 'transparent',
                   borderRadius: '50%',
@@ -286,17 +292,17 @@ export default function LoginPage() {
             </>
           ) : (
             <>
-              <span>Next</span>
-              <svg className="ic" aria-hidden="true" style={{ width: 16, height: 16 }}><use href="#i-arrow-right" /></svg>
+              <span>Sign In</span>
+              <svg className="ic" aria-hidden="true" style={{ width: 14, height: 14 }}><use href="#i-arrow-right" /></svg>
             </>
           )}
         </button>
       </form>
 
       {/* Alternative SSO / Passkey */}
-      <div style={{ margin: '1.75rem 0', display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ margin: '1.25rem 0', display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div style={{ flex: 1, height: '1px', background: 'var(--line)' }} />
-        <span style={{ fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-faint)' }}>or</span>
+        <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--fg-faint)' }}>or</span>
         <div style={{ flex: 1, height: '1px', background: 'var(--line)' }} />
       </div>
 
@@ -306,22 +312,24 @@ export default function LoginPage() {
         className="btn btn-line"
         style={{
           width: '100%',
-          height: '44px',
-          borderRadius: '12px',
-          fontSize: '0.88rem',
+          height: '40px',
+          borderRadius: '10px',
+          fontSize: '0.8rem',
           fontWeight: 500,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
+          color: 'var(--hi)',
+          borderColor: 'var(--line-2)',
         }}
       >
-        <svg className="ic" style={{ width: 16, height: 16 }}><use href="#i-lock" /></svg>
+        <svg className="ic" style={{ width: 14, height: 14 }}><use href="#i-lock" /></svg>
         <span>Sign in with Passkey / Security Key</span>
       </button>
 
       {/* Bottom Switcher */}
-      <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.85rem', color: 'var(--low)' }}>
+      <div style={{ marginTop: '1.25rem', textAlign: 'center', fontSize: '0.78rem', color: 'var(--fg-dim)' }}>
         New user?{' '}
         <Link
           href="/auth/signup"

@@ -96,15 +96,15 @@ export default function BankAccountsView() {
       </div>
 
       {/* ============ BANK CARDS GRID ============ */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.25rem' }}>
         {accounts.map((acc) => (
           <div
             key={acc.id}
             style={{
-              padding: '1.5rem',
+              padding: 'clamp(1rem, 3vw, 1.5rem)',
               borderRadius: '18px',
               background: 'var(--surface)',
-              border: acc.isDefault ? '1px solid var(--jade-text-d)' : '1px solid var(--line)',
+              border: acc.isDefault ? '1px solid #3B82F6' : '1px solid var(--line)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -125,14 +125,14 @@ export default function BankAccountsView() {
                   </div>
                 </div>
 
-                <span style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '999px', background: acc.status === 'Verified' ? 'rgba(39, 161, 127, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: acc.status === 'Verified' ? 'var(--coin-usdt)' : 'var(--pending)', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.72rem', padding: '2px 8px', borderRadius: '999px', background: acc.status === 'Verified' ? 'rgba(0, 0, 255, 0.12)' : 'rgba(245, 166, 35, 0.12)', color: acc.status === 'Verified' ? 'var(--jade-text-d)' : 'var(--pending)', fontWeight: 600 }}>
                   {acc.status}
                 </span>
               </div>
 
               <div style={{ marginTop: '1rem', padding: '0.75rem', borderRadius: '10px', background: 'var(--ground)', border: '1px solid var(--line)' }}>
                 <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-faint)', marginBottom: '2px' }}>IBAN / Account Number</div>
-                <div style={{ fontSize: '0.86rem', fontWeight: 600, fontFamily: 'var(--f-mono)', color: 'var(--hi)' }}>{acc.iban}</div>
+                <div style={{ fontSize: '0.86rem', fontWeight: 600, fontFamily: 'var(--f-mono)', color: 'var(--hi)', wordBreak: 'break-all' }}>{acc.iban}</div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', color: 'var(--fg-dim)', marginTop: '0.75rem' }}>
@@ -143,7 +143,7 @@ export default function BankAccountsView() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--line)', paddingTop: '0.75rem' }}>
               {acc.isDefault ? (
-                <span style={{ fontSize: '0.75rem', color: 'var(--jade-text-d)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#3B82F6', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <svg className="ic" style={{ width: 12, height: 12 }}><use href="#i-check" /></svg>
                   Default Withdrawal Account
                 </span>
@@ -199,8 +199,10 @@ export default function BankAccountsView() {
               borderRadius: '24px',
               background: 'var(--surface)',
               border: '1px solid var(--line)',
-              padding: '2rem',
+              padding: 'clamp(1.25rem, 4vw, 2rem)',
               boxShadow: 'var(--shadow)',
+              maxHeight: '90vh',
+              overflowY: 'auto',
             }}
             onClick={(e) => e.stopPropagation()}
           >

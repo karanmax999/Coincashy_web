@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import CryptoLogo from '@/components/CryptoLogo';
 
 export default function BuyCryptoView() {
   const [fiatAmount, setFiatAmount] = useState('2500');
@@ -52,7 +53,7 @@ export default function BuyCryptoView() {
           borderRadius: '24px',
           background: 'var(--surface)',
           border: '1px solid var(--line)',
-          padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           boxShadow: 'var(--shadow)',
         }}
       >
@@ -63,7 +64,7 @@ export default function BuyCryptoView() {
             <span>Min: €50 · Max: €250,000</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <input
               type="number"
               value={fiatAmount}
@@ -71,34 +72,39 @@ export default function BuyCryptoView() {
               placeholder="0.00"
               style={{
                 flex: 1,
+                minWidth: '80px',
                 background: 'none',
                 border: 'none',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                fontFamily: 'var(--f-mono)',
+                fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                fontWeight: 650,
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                letterSpacing: '-0.02em',
                 outline: 'none',
               }}
             />
 
-            <select
-              value={fiatCurrency}
-              onChange={(e) => setFiatCurrency(e.target.value as any)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: '10px',
-                background: 'var(--surface-2)',
-                border: '1px solid var(--line)',
-                color: 'var(--hi)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              <option value="EUR">EUR (€)</option>
-              <option value="PLN">PLN (zł)</option>
-              <option value="USD">USD ($)</option>
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px', flexShrink: 0 }}>
+              <CryptoLogo symbol={fiatCurrency} size={22} />
+              <select
+                value={fiatCurrency}
+                onChange={(e) => setFiatCurrency(e.target.value as any)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--hi)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                <option value="EUR">EUR (€)</option>
+                <option value="PLN">PLN (zł)</option>
+                <option value="USD">USD ($)</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -109,38 +115,45 @@ export default function BuyCryptoView() {
             <span>Zero Slippage Guarantee</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div
               style={{
                 flex: 1,
+                minWidth: '80px',
                 color: 'var(--hi)',
-                fontSize: '1.75rem',
-                fontWeight: 600,
-                fontFamily: 'var(--f-mono)',
+                fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                fontWeight: 650,
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                letterSpacing: '-0.02em',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
               }}
             >
               {cryptoReceived}
             </div>
 
-            <select
-              value={cryptoAsset}
-              onChange={(e) => setCryptoAsset(e.target.value as any)}
-              style={{
-                padding: '8px 12px',
-                borderRadius: '10px',
-                background: 'var(--surface-2)',
-                border: '1px solid var(--line)',
-                color: 'var(--hi)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                cursor: 'pointer',
-              }}
-            >
-              <option value="USDT">USDT</option>
-              <option value="BTC">BTC</option>
-              <option value="ETH">ETH</option>
-              <option value="USDC">USDC</option>
-            </select>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px', flexShrink: 0 }}>
+              <CryptoLogo symbol={cryptoAsset} size={22} />
+              <select
+                value={cryptoAsset}
+                onChange={(e) => setCryptoAsset(e.target.value as any)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--hi)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  outline: 'none',
+                }}
+              >
+                <option value="USDT">USDT</option>
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="USDC">USDC</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -167,21 +180,23 @@ export default function BuyCryptoView() {
                     justifyContent: 'space-between',
                     padding: '0.85rem 1rem',
                     borderRadius: '12px',
-                    border: isSelected ? '1px solid var(--jade-text-d)' : '1px solid var(--line)',
+                    border: isSelected ? '1px solid #3B82F6' : '1px solid var(--line)',
                     background: isSelected ? 'var(--surface-2)' : 'var(--ground)',
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
+                    flexWrap: 'wrap',
+                    gap: '8px',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ width: 18, height: 18, borderRadius: '50%', border: isSelected ? '5px solid var(--jade-text-d)' : '2px solid var(--fg-faint)', background: '#fff' }} />
-                    <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
+                    <div style={{ width: 18, height: 18, borderRadius: '50%', border: isSelected ? '5px solid #3B82F6' : '2px solid var(--fg-faint)', background: '#fff', flexShrink: 0 }} />
+                    <div style={{ minWidth: 0 }}>
                       <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--hi)' }}>{method.name}</div>
-                      <div style={{ fontSize: '0.74rem', color: isSelected ? 'var(--jade-text-d)' : 'var(--fg-dim)' }}>{method.fee}</div>
+                      <div style={{ fontSize: '0.74rem', color: isSelected ? '#3B82F6' : 'var(--fg-dim)' }}>{method.fee}</div>
                     </div>
                   </div>
                   {method.recommended && (
-                    <span style={{ fontSize: '0.7rem', padding: '2px 7px', borderRadius: '999px', background: 'rgba(39, 161, 127, 0.15)', color: 'var(--coin-usdt)', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.7rem', padding: '2px 7px', borderRadius: '999px', background: 'rgba(0, 0, 255, 0.15)', color: 'var(--jade-text-d)', fontWeight: 600, flexShrink: 0 }}>
                       Fastest
                     </span>
                   )}
@@ -217,10 +232,11 @@ export default function BuyCryptoView() {
             width: '100%',
             padding: '14px',
             fontSize: '1rem',
-            fontWeight: 600,
+            fontWeight: 700,
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, var(--jade), var(--brass))',
-            color: '#fff',
+            background: 'linear-gradient(135deg, #0000FF, #3B82F6)',
+            color: '#ffffff',
+            boxShadow: '0 4px 20px rgba(0, 0, 255, 0.35)',
             border: 'none',
             borderRadius: '12px',
             cursor: isProcessing || numFiat <= 0 ? 'not-allowed' : 'pointer',
