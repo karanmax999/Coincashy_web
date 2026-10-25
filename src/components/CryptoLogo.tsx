@@ -174,6 +174,72 @@ export function CryptoLogo({ symbol, size = 32, className, style }: CryptoLogoPr
         </svg>
       );
 
+    case 'BNB':
+      return (
+        <svg
+          viewBox="0 0 32 32"
+          width={size}
+          height={size}
+          fill="none"
+          className={className}
+          style={{ flexShrink: 0, borderRadius: '50%', ...style }}
+          aria-label="BNB logo"
+        >
+          <circle cx="16" cy="16" r="16" fill="#F0B90B" />
+          <path
+            d="M12.116 14.404L16 10.52l3.886 3.886 2.26-2.26L16 6 9.856 12.144l2.26 2.26zm-6.116 1.6l2.26-2.26 2.26 2.26-2.26 2.26-2.26-2.26zm6.116 1.596L16 21.48l3.886-3.886 2.26 2.26L16 26l-6.144-6.144 2.26-2.26zm9.998-1.596l2.26-2.26 2.26 2.26-2.26 2.26-2.26-2.26zm-6.114-1.6l2.26 2.26-2.26 2.26-2.26-2.26 2.26-2.26z"
+            fill="#FFF"
+          />
+        </svg>
+      );
+
+    case 'TRX':
+      return (
+        <svg
+          viewBox="0 0 32 32"
+          width={size}
+          height={size}
+          fill="none"
+          className={className}
+          style={{ flexShrink: 0, borderRadius: '50%', ...style }}
+          aria-label="Tron logo"
+        >
+          <circle cx="16" cy="16" r="16" fill="#EF0027" />
+          <path
+            d="M24.78 8.87L7.22 6.83 14.33 26l10.45-17.13zm-1.89 1.48l-7.79 12.78-4.9-13.2 12.69.42zm-8.81 13.93l6.59-10.81 2.37.08-8.96 10.73z"
+            fill="#FFF"
+          />
+        </svg>
+      );
+
+    case 'AED':
+      return (
+        <svg
+          viewBox="0 0 32 32"
+          width={size}
+          height={size}
+          fill="none"
+          className={className}
+          style={{ flexShrink: 0, borderRadius: '50%', ...style }}
+          aria-label="United Arab Emirates Dirham logo"
+        >
+          <circle cx="16" cy="16" r="16" fill="#00732F" />
+          <circle cx="16" cy="16" r="14.5" stroke="#FFF" strokeOpacity="0.25" strokeWidth="1" />
+          <text
+            x="16"
+            y="20"
+            fill="#FFF"
+            fontSize="9"
+            fontWeight="800"
+            textAnchor="middle"
+            fontFamily="var(--f-display), system-ui, sans-serif"
+            letterSpacing="0.04em"
+          >
+            AED
+          </text>
+        </svg>
+      );
+
     case 'PLN':
       return (
         <svg

@@ -1,35 +1,73 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import CryptoLogo from '@/components/CryptoLogo';
+import CurrencySelectModal, { DEFAULT_CURRENCIES } from '@/components/CurrencySelectModal';
+
+// Base rates in EUR for RFQ calculation
+const BASE_RATES_IN_EUR: Record<string, number> = {
+  EUR: 1.0,
+  USD: 0.9259,
+  USDT: 0.9259,
+  USDC: 0.9259,
+  BTC: 78120.4,
+  ETH: 2445.8,
+  SOL: 158.4,
+  BNB: 545.2,
+  TRX: 0.152,
+  AED: 0.252,
+  PLN: 0.234,
+};
+
+// User holdings lookup for Available balance & MAX
+const USER_BALANCES: Record<string, { balanceStr: string; raw: number }> = {
+  EUR: { balanceStr: '42,100.00 EUR', raw: 42100.0 },
+  BTC: { balanceStr: '1.0245 BTC', raw: 1.0245 },
+  USDT: { balanceStr: '5,030.00 USDT', raw: 5030.0 },
+  USDC: { balanceStr: '2,500.00 USDC', raw: 2500.0 },
+  ETH: { balanceStr: '1.4500 ETH', raw: 1.45 },
+  AED: { balanceStr: '0 AED', raw: 0 },
+  BNB: { balanceStr: '0 BNB', raw: 0 },
+  TRX: { balanceStr: '0 TRX', raw: 0 },
+  USD: { balanceStr: '0.00 USD', raw: 0 },
+  SOL: { balanceStr: '0 SOL', raw: 0 },
+  PLN: { balanceStr: '0.00 PLN', raw: 0 },
+};
 
 export default function ConvertView() {
-  const [fromAsset, setFromAsset] = useState<'BTC' | 'USDT' | 'EUR' | 'ETH'>('BTC');
-  const [toAsset, setToAsset] = useState<'USDT' | 'BTC' | 'EUR' | 'ETH'>('USDT');
+  const [fromAsset, setFromAsset] = useState<string>('BTC');
+  const [toAsset, setToAsset] = useState<string>('USDT');
   const [fromAmount, setFromAmount] = useState('0.5');
   const [timeLeft, setTimeLeft] = useState(15);
   const [isRotating, setIsRotating] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [modalTarget, setModalTarget] = useState<'from' | 'to' | null>(null);
 
-  // Conversion rates baseline
-  const rates: Record<string, number> = {
-    'BTC-USDT': 84297.67,
-    'USDT-BTC': 1 / 84297.67,
-    'BTC-EUR': 78120.40,
-    'EUR-BTC': 1 / 78120.40,
-    'ETH-USDT': 2640.35,
-    'USDT-ETH': 1 / 2640.35,
-    'ETH-EUR': 2445.80,
-    'EUR-ETH': 1 / 2445.80,
-    'EUR-USDT': 1.08,
-    'USDT-EUR': 1 / 1.08,
-  };
+  // Dynamic institutional RFQ rate
+  const rate = useMemo(() => {
+    const fromBase = BASE_RATES_IN_EUR[fromAsset] || 1;
+    const toBase = BASE_RATES_IN_EUR[toAsset] || 1;
+    return fromBase / toBase;
+  }, [fromAsset, toAsset]);
 
-  const pairKey = `${fromAsset}-${toAsset}`;
-  const rate = rates[pairKey] || 1;
   const numFrom = parseFloat(fromAmount) || 0;
-  const calculatedTo = (numFrom * rate).toFixed(fromAsset === 'USDT' || fromAsset === 'EUR' ? 6 : 2);
+  const numTo = numFrom * rate;
+
+  // Format calculated receive amount
+  const calculatedTo = useMemo(() => {
+    if (numTo <= 0 || isNaN(numTo)) return '0.00';
+    if (toAsset === 'BTC') return numTo.toFixed(6);
+    if (toAsset === 'ETH' || toAsset === 'SOL' || toAsset === 'BNB') return numTo.toFixed(5);
+    if (toAsset === 'TRX') return numTo.toFixed(2);
+    return numTo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }, [numTo, toAsset]);
+
+  // Available balance for current fromAsset
+  const availableInfo = USER_BALANCES[fromAsset] || {
+    balanceStr: `0.00 ${fromAsset}`,
+    raw: 0,
+  };
 
   // 15-second guaranteed quote countdown
   useEffect(() => {
@@ -43,8 +81,29 @@ export default function ConvertView() {
     setIsRotating(true);
     setTimeout(() => setIsRotating(false), 300);
     const temp = fromAsset;
-    setFromAsset(toAsset as any);
-    setToAsset(temp as any);
+    setFromAsset(toAsset);
+    setToAsset(temp);
+  };
+
+  const handleMax = () => {
+    if (availableInfo.raw > 0) {
+      setFromAmount(String(availableInfo.raw));
+    }
+  };
+
+  const handleCurrencySelect = (symbol: string) => {
+    if (modalTarget === 'from') {
+      if (symbol === toAsset) {
+        setToAsset(fromAsset);
+      }
+      setFromAsset(symbol);
+    } else if (modalTarget === 'to') {
+      if (symbol === fromAsset) {
+        setFromAsset(toAsset);
+      }
+      setToAsset(symbol);
+    }
+    setModalTarget(null);
   };
 
   const handleExecute = () => {
@@ -57,7 +116,6 @@ export default function ConvertView() {
 
   return (
     <div style={{ maxWidth: '640px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      
       {/* ============ TITLE ============ */}
       <div style={{ textAlign: 'center' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--hi)' }}>Instant RFQ Conversion Desk</h2>
@@ -78,15 +136,58 @@ export default function ConvertView() {
         }}
       >
         {/* Quote Lock Indicator */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--line)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: 'var(--coin-usdt)', fontWeight: 600 }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--coin-usdt)', boxShadow: '0 0 8px var(--coin-usdt)' }} />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1.25rem',
+            paddingBottom: '0.75rem',
+            borderBottom: '1px solid var(--line)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '0.78rem',
+              color: 'var(--coin-usdt)',
+              fontWeight: 600,
+            }}
+          >
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: 'var(--coin-usdt)',
+                boxShadow: '0 0 8px var(--coin-usdt)',
+              }}
+            />
             <span>Guaranteed Quote Locked</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.76rem', color: 'var(--fg-dim)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.76rem',
+              color: 'var(--fg-dim)',
+            }}
+          >
             <span>Refreshes in:</span>
-            <span style={{ fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums', color: 'var(--hi)', fontWeight: 600 }}>{timeLeft}s</span>
+            <span
+              style={{
+                fontFamily: 'var(--f-display)',
+                fontVariantNumeric: 'tabular-nums lining-nums',
+                color: 'var(--hi)',
+                fontWeight: 600,
+              }}
+            >
+              {timeLeft}s
+            </span>
           </div>
         </div>
 
@@ -100,9 +201,19 @@ export default function ConvertView() {
             marginBottom: '0.5rem',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--fg-faint)', marginBottom: '0.5rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: '0.76rem',
+              color: 'var(--fg-faint)',
+              marginBottom: '0.5rem',
+            }}
+          >
             <span>YOU PAY</span>
-            <span style={{ fontVariantNumeric: 'tabular-nums lining-nums' }}>Available: 1.0245 BTC</span>
+            <span style={{ fontVariantNumeric: 'tabular-nums lining-nums' }}>
+              Available: {availableInfo.balanceStr}
+            </span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -128,15 +239,15 @@ export default function ConvertView() {
 
             <button
               type="button"
-              onClick={() => setFromAmount('1.0245')}
+              onClick={handleMax}
               style={{
-                padding: '3px 8px',
+                padding: '4px 9px',
                 borderRadius: '6px',
                 background: 'var(--surface-2)',
                 border: '1px solid var(--line)',
                 fontSize: '0.72rem',
                 color: 'var(--gold, #E2B866)',
-                fontWeight: 600,
+                fontWeight: 650,
                 cursor: 'pointer',
                 flexShrink: 0,
               }}
@@ -144,32 +255,52 @@ export default function ConvertView() {
               MAX
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px' }}>
-              <CryptoLogo symbol={fromAsset} size={22} />
-              <select
-                value={fromAsset}
-                onChange={(e) => setFromAsset(e.target.value as any)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--hi)',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  outline: 'none',
-                }}
+            {/* CURRENCY SELECTOR PILL BUTTON */}
+            <button
+              type="button"
+              onClick={() => setModalTarget('from')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'var(--surface-2)',
+                border: '1px solid var(--line)',
+                borderRadius: '12px',
+                padding: '6px 12px 6px 10px',
+                cursor: 'pointer',
+                color: 'var(--hi)',
+                fontWeight: 650,
+                fontSize: '0.92rem',
+                transition: 'all 0.15s ease',
+                flexShrink: 0,
+              }}
+              aria-label={`Select source currency, currently ${fromAsset}`}
+            >
+              <CryptoLogo symbol={fromAsset} size={24} />
+              <span>{fromAsset}</span>
+              <svg
+                style={{ width: 14, height: 14, color: 'var(--fg-dim)', marginLeft: '2px' }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.2}
               >
-                <option value="BTC">BTC</option>
-                <option value="ETH">ETH</option>
-                <option value="USDT">USDT</option>
-                <option value="EUR">EUR</option>
-              </select>
-            </div>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
           </div>
         </div>
 
         {/* FLIP BUTTON */}
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '-14px 0', position: 'relative', zIndex: 2 }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '-14px 0',
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
           <button
             type="button"
             onClick={handleFlip}
@@ -190,7 +321,9 @@ export default function ConvertView() {
             }}
             title="Invert Conversion Pair"
           >
-            <svg className="ic" style={{ width: 16, height: 16 }}><use href="#i-repeat" /></svg>
+            <svg className="ic" style={{ width: 16, height: 16 }}>
+              <use href="#i-repeat" />
+            </svg>
           </button>
         </div>
 
@@ -205,7 +338,15 @@ export default function ConvertView() {
             marginBottom: '1.5rem',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem', color: 'var(--fg-faint)', marginBottom: '0.5rem' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: '0.76rem',
+              color: 'var(--fg-faint)',
+              marginBottom: '0.5rem',
+            }}
+          >
             <span>YOU RECEIVE (ESTIMATED)</span>
             <span>0% Slippage Guaranteed</span>
           </div>
@@ -228,36 +369,63 @@ export default function ConvertView() {
               {calculatedTo}
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--surface-2)', border: '1px solid var(--line)', borderRadius: '10px', padding: '4px 8px 4px 10px' }}>
-              <CryptoLogo symbol={toAsset} size={22} />
-              <select
-                value={toAsset}
-                onChange={(e) => setToAsset(e.target.value as any)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--hi)',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  outline: 'none',
-                }}
+            {/* CURRENCY SELECTOR PILL BUTTON */}
+            <button
+              type="button"
+              onClick={() => setModalTarget('to')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'var(--surface-2)',
+                border: '1px solid var(--line)',
+                borderRadius: '12px',
+                padding: '6px 12px 6px 10px',
+                cursor: 'pointer',
+                color: 'var(--hi)',
+                fontWeight: 650,
+                fontSize: '0.92rem',
+                transition: 'all 0.15s ease',
+                flexShrink: 0,
+              }}
+              aria-label={`Select destination currency, currently ${toAsset}`}
+            >
+              <CryptoLogo symbol={toAsset} size={24} />
+              <span>{toAsset}</span>
+              <svg
+                style={{ width: 14, height: 14, color: 'var(--fg-dim)', marginLeft: '2px' }}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.2}
               >
-                <option value="USDT">USDT</option>
-                <option value="BTC">BTC</option>
-                <option value="EUR">EUR</option>
-                <option value="ETH">ETH</option>
-              </select>
-            </div>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
           </div>
         </div>
 
         {/* SUMMARY DETAILS */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.8rem', color: 'var(--fg-dim)', borderTop: '1px solid var(--line)', paddingTop: '1.25rem', marginBottom: '1.5rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.65rem',
+            fontSize: '0.8rem',
+            color: 'var(--fg-dim)',
+            borderTop: '1px solid var(--line)',
+            paddingTop: '1.25rem',
+            marginBottom: '1.5rem',
+          }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>Indicative Rate</span>
             <span style={{ fontFamily: 'var(--f-mono)', color: 'var(--hi)', fontWeight: 600 }}>
-              1 {fromAsset} ≈ {rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} {toAsset}
+              1 {fromAsset} ≈{' '}
+              {rate < 0.001
+                ? rate.toFixed(6)
+                : rate.toLocaleString('en-US', { maximumFractionDigits: rate < 1 ? 5 : 4 })}{' '}
+              {toAsset}
             </span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -293,8 +461,16 @@ export default function ConvertView() {
         >
           {isExecuting ? 'Locking Rate & Executing...' : `Convert ${fromAsset} to ${toAsset}`}
         </button>
-
       </div>
+
+      {/* CURRENCY SELECT MODAL */}
+      <CurrencySelectModal
+        isOpen={modalTarget !== null}
+        onClose={() => setModalTarget(null)}
+        onSelect={(item) => handleCurrencySelect(item.symbol)}
+        selectedCurrency={modalTarget === 'from' ? fromAsset : toAsset}
+        title="Select Currency"
+      />
 
       {/* SUCCESS MODAL */}
       {showSuccess && (
@@ -324,12 +500,30 @@ export default function ConvertView() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(0, 0, 255, 0.15)', color: 'var(--jade-text-d)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
-              <svg className="ic" style={{ width: 28, height: 28 }}><use href="#i-check" /></svg>
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: '50%',
+                background: 'rgba(0, 0, 255, 0.15)',
+                color: 'var(--jade-text-d)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 1.25rem',
+              }}
+            >
+              <svg className="ic" style={{ width: 28, height: 28 }}>
+                <use href="#i-check" />
+              </svg>
             </div>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 600, color: 'var(--hi)' }}>Conversion Completed</h3>
             <p style={{ fontSize: '0.88rem', color: 'var(--fg-dim)', marginTop: '6px', lineHeight: 1.5 }}>
-              Successfully converted <strong>{fromAmount} {fromAsset}</strong> into <strong>{calculatedTo} {toAsset}</strong> at locked rate.
+              Successfully converted <strong>{fromAmount} {fromAsset}</strong> into{' '}
+              <strong>
+                {calculatedTo} {toAsset}
+              </strong>{' '}
+              at locked rate.
             </p>
             <button
               type="button"
@@ -342,7 +536,6 @@ export default function ConvertView() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

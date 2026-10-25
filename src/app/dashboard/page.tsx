@@ -46,7 +46,7 @@ export default function DashboardPage() {
     { id: 'buy' as DashboardTab, label: 'Buy Crypto', icon: '#i-credit-card' },
     { id: 'crypto-deposit' as DashboardTab, label: 'Crypto Deposit', icon: '#i-arrow-down-left' },
     { id: 'crypto-withdraw' as DashboardTab, label: 'Crypto Withdrawals', icon: '#i-arrow-up-right' },
-    { id: 'fiat-deposit' as DashboardTab, label: 'Add Funds (vIBAN)', icon: '#i-landmark' },
+    { id: 'fiat-deposit' as DashboardTab, label: 'Add Funds', icon: '#i-landmark' },
     { id: 'fiat-withdraw' as DashboardTab, label: 'Fiat Withdrawals', icon: '#i-banknote' },
     { id: 'guest-deposit' as DashboardTab, label: 'Guests Deposits', icon: '#i-users' },
     { id: 'orders' as DashboardTab, label: 'Conversions History', icon: '#i-chart-candlestick' },
@@ -284,17 +284,80 @@ export default function DashboardPage() {
           {/* ============ DESKTOP HEADER (>= 1024px) ============ */}
           <div className="desktop-only" style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <h1 style={{ fontFamily: 'var(--f-serif), Georgia, serif', fontSize: '1.45rem', fontStyle: 'italic', fontWeight: 400, color: 'var(--hi)', letterSpacing: '-0.015em', margin: 0 }}>
+              <h1
+                style={{
+                  fontFamily: 'var(--f-display)',
+                  fontSize: '1.25rem',
+                  fontWeight: 650,
+                  fontStyle: 'normal',
+                  color: 'var(--hi)',
+                  letterSpacing: '-0.02em',
+                  margin: 0,
+                }}
+              >
                 {getHeaderTitle()}
               </h1>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', borderRadius: '999px', background: 'var(--surface-2)', border: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--jade-text-d)', fontWeight: 500 }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3B82F6' }} />
-                <span>VASP Regulated (KRS: 0001135823)</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {/* Institutional Balance Strip (Matching Original Platform) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', fontSize: '0.78rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1.15 }}>
+                  <span style={{ fontSize: '0.66rem', color: 'var(--fg-faint)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Crypto balance
+                  </span>
+                  <span style={{ fontWeight: 650, color: 'var(--hi)', fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                    €84,200.00
+                  </span>
+                </div>
+
+                <div style={{ width: '1px', height: '20px', background: 'var(--line)' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1.15 }}>
+                  <span style={{ fontSize: '0.66rem', color: 'var(--fg-faint)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Fiat balance
+                  </span>
+                  <span style={{ fontWeight: 650, color: 'var(--hi)', fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                    €42,100.00
+                  </span>
+                </div>
+
+                <div style={{ width: '1px', height: '20px', background: 'var(--line)' }} />
+
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', lineHeight: 1.15 }}>
+                  <span style={{ fontSize: '0.66rem', color: 'var(--fg-faint)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Portfolio value
+                  </span>
+                  <span style={{ fontWeight: 700, color: '#3B82F6', fontFamily: 'var(--f-display)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                    €126,300.00
+                  </span>
+                </div>
               </div>
 
+              {/* Crypto Pay Action Button */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('convert')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 14px',
+                  borderRadius: '999px',
+                  background: '#2563EB',
+                  color: '#ffffff',
+                  border: 'none',
+                  fontSize: '0.8rem',
+                  fontWeight: 650,
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 10px rgba(37, 99, 235, 0.28)',
+                  transition: 'opacity 0.15s',
+                }}
+              >
+                Crypto Pay
+              </button>
+
+              {/* Theme Toggle Button */}
               <button
                 className="theme-btn"
                 type="button"
